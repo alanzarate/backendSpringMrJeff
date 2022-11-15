@@ -1,1 +1,0 @@
--- aqui va el script dfe la bd principal
