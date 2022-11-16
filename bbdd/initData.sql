@@ -281,6 +281,8 @@ VALUES
 
 -- para los users estrucutra de los datos falseados
 
+  -- los couriers  user_id { 4 ,8 ,9 ,10 ,15, 22}
+
 person_id= 1: {"username":"alan123","secret":"zarate123","email":"alan.zarate@ucb.edu.bo"},
 person_id = 2: {"username":"emerson123","secret":"chipana123","email":"emerson.chipana@ucb.edu.bo"},
 person_id = 3:{"username":"nikolai123","secret":"lopez123","email":"nikolai.lopez@ucb.edu.bo"},
@@ -385,17 +387,28 @@ VALUES
 INSERT INTO MR_ROLE
 (detail, cat_role, status, tx_date, tx_user, tx_host, created)
 VALUES
-('Can create a new user', 'createNewUser',  1, now(), 'admin', '192.168.100.10', now() ),  -- simple user, admin
-('Can delete an exitent user', 'deleteUser',  1, now(), 'admin', '192.168.100.10', now() ),  -- admin
-('Can view pickups', 'viewPickUp',  1, now(), 'admin', '192.168.100.10', now() ), --courier
-('Can view the deliveries', 'viewDelivery',  1, now(), 'admin', '192.168.100.10', now() ), --couriere
-('Can view work status', 'viewWorkStatus',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
-('Can create pickups', 'createPickUp',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
-('Can accept a pickup', 'acceptPickUp',  1, now(), 'admin', '192.168.100.10', now() ), -- courier
-('Can cancel a pickup', 'cancelPickUp',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
-('Can create a delivery', 'createDelivery',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
-('Can cancel a delivery', 'cancelDelivery',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
-('Can accept a delivery', 'acceptDelivery',  1, now(), 'admin', '192.168.100.10', now() ); -- courier
+-- admin  --1
+('Can create a new user', 'createNewUser',  1, now(), 'admin', '192.168.100.10', now() ),  
+ -- admin             --2
+('Can delete an exitent user', 'deleteUser',  1, now(), 'admin', '192.168.100.10', now() ), 
+--courier  , admin     --3 
+('Can view pickups', 'viewPickUp',  1, now(), 'admin', '192.168.100.10', now() ), 
+ --couriere  , admin       --4
+('Can view the deliveries', 'viewDelivery',  1, now(), 'admin', '192.168.100.10', now() ),
+ -- simple user   , admin     --5
+('Can view work status', 'viewWorkStatus',  1, now(), 'admin', '192.168.100.10', now() ),
+-- simple user              --6
+('Can create pickups', 'createPickUp',  1, now(), 'admin', '192.168.100.10', now() ), 
+-- courier                 --7
+('Can accept a pickup', 'acceptPickUp',  1, now(), 'admin', '192.168.100.10', now() ), 
+-- simple user             --8
+('Can cancel a pickup', 'cancelPickUp',  1, now(), 'admin', '192.168.100.10', now() ), 
+-- simple user         --9
+('Can create a delivery', 'createDelivery',  1, now(), 'admin', '192.168.100.10', now() ), 
+-- simple user         --10
+('Can cancel a delivery', 'cancelDelivery',  1, now(), 'admin', '192.168.100.10', now() ), 
+-- courier             --11
+('Can accept a delivery', 'acceptDelivery',  1, now(), 'admin', '192.168.100.10', now() ); 
 
 
 INSERT INTO MR_GROUP 
@@ -411,15 +424,14 @@ VALUES
 (1, 1 , 1, now(), 'admin', '192.168.100.10', now() ), 
 (1, 2, 1, now(), 'admin', '192.168.100.10', now() ), 
 (1, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
--- admin are also simple users
-(3, 1 , 1, now(), 'admin', '192.168.100.10', now() ), 
-(3, 2, 1, now(), 'admin', '192.168.100.10', now() ), 
-(3, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
+(1, 4 , 1, now(), 'admin', '192.168.100.10', now() ), 
+(1, 5, 1, now(), 'admin', '192.168.100.10', now() ), 
 
+(2, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
 (2, 4, 1, now(), 'admin', '192.168.100.10', now() ), 
 (2, 7, 1, now(), 'admin', '192.168.100.10', now() ), 
 (2, 11, 1, now(), 'admin', '192.168.100.10', now() ), 
-(3, 1, 1, now(), 'admin', '192.168.100.10', now() ), 
+ 
 (3, 5, 1, now(), 'admin', '192.168.100.10', now() ), 
 (3, 6, 1, now(), 'admin', '192.168.100.10', now() ), 
 (3, 8, 1, now(), 'admin', '192.168.100.10', now() ), 
@@ -441,7 +453,7 @@ VALUES
 (7, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
 (8, 2, 1, now(), 'admin', '192.168.100.10', now() ), 
 (9, 2, 1, now(), 'admin', '192.168.100.10', now() ), 
-(10 2, 1, now(), 'admin', '192.168.100.10', now() ), 
+(10, 2, 1, now(), 'admin', '192.168.100.10', now() ), 
 (11, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
 (12, 3, 1, now(), 'admin', '192.168.100.10', now() ),
 (13, 3 , 1, now(), 'admin', '192.168.100.10', now() ), 

@@ -8,24 +8,27 @@ public class MrUser {
     private String username;
     private String secret;
     private String email;
-    private Boolean status;
-    private String txUsername;
-    private String txHost;
+    private String catUserStatus;
+    private Integer personId;
+    private Integer status;
     private Date txDate;
-    private Date created;
+    private String txUser;
+    private String txHost;
 
     public MrUser(){}
-    public MrUser(Integer userId, String username, String secret, String email, Boolean status, String txUsername, String txHost, Date txDate, Date created) {
+    public MrUser(Integer userId, String username, String secret, String email, String catUserStatus, Integer personId, Integer status, Date txDate, String txUser, String txHost) {
         this.userId = userId;
         this.username = username;
         this.secret = secret;
         this.email = email;
+        this.catUserStatus = catUserStatus;
+        this.personId = personId;
         this.status = status;
-        this.txUsername = txUsername;
-        this.txHost = txHost;
         this.txDate = txDate;
-        this.created = created;
+        this.txUser = txUser;
+        this.txHost = txHost;
     }
+
 
     public Integer getUserId() {
         return userId;
@@ -59,28 +62,28 @@ public class MrUser {
         this.email = email;
     }
 
-    public Boolean getStatus() {
+    public String getCatUserStatus() {
+        return catUserStatus;
+    }
+
+    public void setCatUserStatus(String catUserStatus) {
+        this.catUserStatus = catUserStatus;
+    }
+
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getTxUsername() {
-        return txUsername;
-    }
-
-    public void setTxUsername(String txUsername) {
-        this.txUsername = txUsername;
-    }
-
-    public String getTxHost() {
-        return txHost;
-    }
-
-    public void setTxHost(String txHost) {
-        this.txHost = txHost;
     }
 
     public Date getTxDate() {
@@ -91,12 +94,20 @@ public class MrUser {
         this.txDate = txDate;
     }
 
-    public Date getCreated() {
-        return created;
+    public String getTxUser() {
+        return txUser;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setTxUser(String txUser) {
+        this.txUser = txUser;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
     }
 
     @Override
@@ -112,5 +123,19 @@ public class MrUser {
         return Objects.hash(userId);
     }
 
-
+    @Override
+    public String toString() {
+        return "MrUser{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", secret='" + secret + '\'' +
+                ", email='" + email + '\'' +
+                ", catUserStatus='" + catUserStatus + '\'' +
+                ", personId=" + personId +
+                ", status=" + status +
+                ", txDate=" + txDate +
+                ", txUser='" + txUser + '\'' +
+                ", txHost='" + txHost + '\'' +
+                '}';
+    }
 }
