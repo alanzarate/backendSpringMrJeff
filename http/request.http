@@ -1,11 +1,16 @@
-### Autenticacion correcta
-POST http://localhost:7777/api/v1/auth/
+### Se van a probar las apis
+POST http://localhost:7777/api/v1/auth
 Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "lramirez",
-  "password": "ABCabc123"
+  "username": "alan123",
+  "password": "zarate123"
 }
 
- 
+
+
+
+
+
+

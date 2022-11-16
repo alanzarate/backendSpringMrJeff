@@ -1,0 +1,14 @@
+## crear un nuevo usuario
+POST http://localhost:7777/api/v1/user/new
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGFuMTIzIiwicm9sZXMiOlsiY3JlYXRlTmV3VXNlciIsImRlbGV0ZVVzZXIiLCJ2aWV3UGlja1VwIiwidmlld0RlbGl2ZXJ5Iiwidmlld1dvcmtTdGF0dXMiXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2ODY1NjQyNX0.6_PFCSbia9JD6QPVe_n3hmMzfyKgSiHZ-PlrLpZrFrw
+
+{
+  "username":"segundaCuentaEmer",
+  "secret":"abc123",
+  "email":"dross@gmail.com", 
+  "personId": 2
+}
+
+
