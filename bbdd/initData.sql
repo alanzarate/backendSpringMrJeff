@@ -1,3 +1,40 @@
+-- EDITAR SI VAN A AGREGAR ALGUNOS DATOS O INFORMACION EN LAS TABLAS
+-- TABBLAS CON DATOS:
+
+-- MR_SERVICE_DETAIL
+-- MR_SIZE
+-- MR_CATEGORY_CLOTH
+-- MR_CLOTHING
+-- MR_CLOTHING_IMAGES
+-- MR_SERVICE
+-- MR_BRANCH
+-- MR_PERSON
+-- MR_USER
+-- MR_BRANCH_USER
+-- MR_ROLE
+-- MR_GROUP
+-- MR_GROUP_ROLE
+-- MR_USER_GROUP 
+-- MR_HOLIDAYS
+-- MR_SCHEDULE
+-- 
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+
+
+
 -- tabla
 INSERT INTO MR_SERVICE_DETAIL 
 (title, description, status, tx_date, tx_user, tx_host, created) VALUES 
@@ -341,7 +378,7 @@ person_id = 25:{"username":"gshouteo","secret":"aDmr06YFHL","email":"sjannascho@
 -- hasta este punto ya se reaizo la subida con http
 
 -- obtiene todas las secuencias SELECT c.relname FROM pg_class c WHERE c.relkind = 'S'; al igual que este SELECT * FROM information_schema.sequences; 
-insert into mr_user 
+insert into MR_USER
 (username, secret, email, cat_user_status, mr_person_id, status, tx_date, tx_user, tx_host, created)
 VALUES
 ('alan123','$2a$12$ukcW8zjaLO3Uel2TsF.Kcec9XuXaITCFit71NhlH7IJ7lbFHU2oeS','alan.zarate@ucb.edu.bo','active',1,1,'2022-11-16 10:29:06.57127','anonymous','localhost','2022-11-16 10:29:06.57127'),
@@ -469,4 +506,33 @@ VALUES
 (23, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
 (24, 3, 1, now(), 'admin', '192.168.100.10', now() ),
 (25, 3 , 1, now(), 'admin', '192.168.100.10', now() );
+
+--insert into H_MR_ATENTION_SPAN (MR_ATENTION_SPAN_ID, TIME_BEGIN, TIME_END, STATUS, TX_DATE, TX_USER, TX_HOST)
+-- VALUES (1, '12:30', '01:55', 1, '20-12-2022', 'anonym', 'localhost');
+ 
+
+ 
+
+INSERT INTO MR_SCHEDULE
+(TIME_START , TIME_END ,DETAIL, STATUS , TX_DATE , TX_USER , TX_HOST , CREATED )
+VALUES
+('9:00','10:00', 'Hora de la mañana', 1, now(), 'admin', '192.168.100.10', now() ),
+('10:00','11:00', 'Hora de la mañana', 1, now(), 'admin', '192.168.100.10', now() ),
+('11:00','12:00', 'Hora de la mañana', 1, now(), 'admin', '192.168.100.10', now() ),
+('13:00','14:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() ),
+('14:00','15:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() ),
+('15:00','16:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() ),
+('16:00','17:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() ),
+('17:00','18:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() ),
+('18:00','19:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() );
+
+ 
+
+INSERT INTO MR_HOLIDAYS
+(DATE_HOLIDAY , DETAIL, STATUS , TX_DATE , TX_USER , TX_HOST , CREATED )
+VALUES
+('30-11-2022','Feriado nacional', 1, now(), 'admin', '192.168.100.10', now() ),
+('7-12-2022','Feriado internacional', 1, now(), 'admin', '192.168.100.10', now() ),
+('9-12-2022', 'Dia de la hamburguesa', 1, now(), 'admin', '192.168.100.10', now() ),
+('10-12-2022','Dia del pique', 1, now(), 'admin', '192.168.100.10', now() );
 
