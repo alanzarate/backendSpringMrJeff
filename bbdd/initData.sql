@@ -279,33 +279,95 @@ VALUES
 
 
 
--- para los users
+-- para los users estrucutra de los datos falseados
 
-person_id = 1: {"username":"alan123","password":"zarate123","email":"alan.zarate@ucb.edu.bo"},
-person_id = 2: {"username":"emerson123","password":"chipana123","email":"emerson.chipana@ucb.edu.bo"},
-person_id = 3:{"username":"nikolai123","password":"lopez123","email":"nikolai.lopez@ucb.edu.bo"},
-person_id = 4:{"username":"rbull3","password":"cisjNKgwO","email":"gskeen3@addtoany.com"},
-person_id = 5:{"username":"bphinnis4","password":"cKhQ1S4r","email":"hgosse4@amazonaws.com"},
-person_id = 6:{"username":"tcoles5","password":"IIn557","email":"lruusa5@salon.com"},
-person_id = 7:{"username":"gkirrens6","password":"B5aX0mAb3Tw0","email":"tcrosier6@ehow.com"},
-person_id = 8:{"username":"spulver7","password":"5TJ0H7mF","email":"hfirmager7@livejournal.com"},
-person_id = 9:{"username":"mondrusek8","password":"Mc6aC2","email":"ctrett8@umich.edu"},
-person_id = 10:{"username":"bstickings9","password":"yHpU4md8v","email":"pmorhall9@slate.com"},
-person_id = 11:{"username":"hgoodshipa","password":"qcXvnm","email":"mgilluma@eventbrite.com"},
-person_id = 12:{"username":"clumberb","password":"bqnilTg7tNZ","email":"scornerb@tripadvisor.com"},
-person_id = 13:{"username":"bkedwellc","password":"6aovb6","email":"pcontic@joomla.org"},
-person_id = 14:{"username":"tmoond","password":"ZT2h96sFJC5M","email":"sfarnfieldd@princeton.edu"},
-person_id = 15:{"username":"apreiste","password":"bZ7yPm3Uc","email":"bmudlee@nifty.com"},
-person_id = 16:{"username":"mfersonf","password":"Qsb6NYOLkPQ","email":"obaskerfieldf@upenn.edu"},
-person_id = 17:{"username":"rwardallg","password":"62fFJkvv9OhQ","email":"spogosiang@google.pl"},
-person_id = 18:{"username":"apeadenh","password":"hSWGLd9ZeWO","email":"jsivilh@oakley.com"},
-person_id = 19:{"username":"btoffanoi","password":"hL2XRy7dF","email":"manchori@taobao.com"},
-person_id = 20:{"username":"agorglerj","password":"Sw1MAg","email":"ncropperj@mapquest.com"},
-person_id = 21:{"username":"eschildk","password":"XM3RcEuQ0U1","email":"mvallentink@indiegogo.com"},
-person_id = 22:{"username":"mbuckthoughtl","password":"nnRcizPomP6N","email":"dhoulaghanl@instagram.com"},
-person_id = 23:{"username":"tcranneym","password":"VknCqoKjY","email":"kpendrem@mozilla.org"},
-person_id = 24:{"username":"sroonn","password":"mlYlpS","email":"kclaragen@slate.com"},
-person_id = 25:{"username":"gshouteo","password":"aDmr06YFHL","email":"sjannascho@people.com.cn"}
+person_id= 1: {"username":"alan123","secret":"zarate123","email":"alan.zarate@ucb.edu.bo"},
+person_id = 2: {"username":"emerson123","secret":"chipana123","email":"emerson.chipana@ucb.edu.bo"},
+person_id = 3:{"username":"nikolai123","secret":"lopez123","email":"nikolai.lopez@ucb.edu.bo"},
+person_id = 4:{"username":"rbull3","secret":"cisjNKgwO","email":"gskeen3@addtoany.com"},
+person_id = 5:{"username":"bphinnis4","secret":"cKhQ1S4r","email":"hgosse4@amazonaws.com"},
+person_id = 6:{"username":"tcoles5","secret":"IIn557","email":"lruusa5@salon.com"},
+person_id = 7:{"username":"gkirrens6","secret":"B5aX0mAb3Tw0","email":"tcrosier6@ehow.com"},
+person_id = 8:{"username":"spulver7","secret":"5TJ0H7mF","email":"hfirmager7@livejournal.com"},
+person_id = 9:{"username":"mondrusek8","secret":"Mc6aC2","email":"ctrett8@umich.edu"},
+person_id = 10:{"username":"bstickings9","secret":"yHpU4md8v","email":"pmorhall9@slate.com"},
+person_id = 11:{"username":"hgoodshipa","secret":"qcXvnm","email":"mgilluma@eventbrite.com"},
+person_id = 12:{"username":"clumberb","secret":"bqnilTg7tNZ","email":"scornerb@tripadvisor.com"},
+person_id = 13:{"username":"bkedwellc","secret":"6aovb6","email":"pcontic@joomla.org"},
+person_id = 14:{"username":"tmoond","secret":"ZT2h96sFJC5M","email":"sfarnfieldd@princeton.edu"},
+person_id = 15:{"username":"apreiste","secret":"bZ7yPm3Uc","email":"bmudlee@nifty.com"},
+person_id = 16:{"username":"mfersonf","secret":"Qsb6NYOLkPQ","email":"obaskerfieldf@upenn.edu"},
+person_id = 17:{"username":"rwardallg","secret":"62fFJkvv9OhQ","email":"spogosiang@google.pl"},
+person_id = 18:{"username":"apeadenh","secret":"hSWGLd9ZeWO","email":"jsivilh@oakley.com"},
+person_id = 19:{"username":"btoffanoi","secret":"hL2XRy7dF","email":"manchori@taobao.com"},
+person_id = 20:{"username":"agorglerj","secret":"Sw1MAg","email":"ncropperj@mapquest.com"},
+person_id = 21:{"username":"eschildk","secret":"XM3RcEuQ0U1","email":"mvallentink@indiegogo.com"},
+person_id = 22:{"username":"mbuckthoughtl","secret":"nnRcizPomP6N","email":"dhoulaghanl@instagram.com"},
+person_id = 23:{"username":"tcranneym","secret":"VknCqoKjY","email":"kpendrem@mozilla.org"},
+person_id = 24:{"username":"sroonn","secret":"mlYlpS","email":"kclaragen@slate.com"},
+person_id = 25:{"username":"gshouteo","secret":"aDmr06YFHL","email":"sjannascho@people.com.cn"}
+
+--- contraseñas y usuarios para cargar desde http
+
+{"username":"alan123","secret":"zarate123","email":"alan.zarate@ucb.edu.bo", "personId": 1},
+{"username":"emerson123","secret":"chipana123","email":"emerson.chipana@ucb.edu.bo", "personId": 2},
+{"username":"nikolai123","secret":"lopez123","email":"nikolai.lopez@ucb.edu.bo", "personId": 3},
+{"username":"rbull3","secret":"cisjNKgwO","email":"gskeen3@addtoany.com", "personId": 4},
+{"username":"bphinnis4","secret":"cKhQ1S4r","email":"hgosse4@amazonaws.com", "personId": 5},
+{"username":"tcoles5","secret":"IIn557","email":"lruusa5@salon.com", "personId": 6},
+{"username":"gkirrens6","secret":"B5aX0mAb3Tw0","email":"tcrosier6@ehow.com", "personId": 7},
+{"username":"spulver7","secret":"5TJ0H7mF","email":"hfirmager7@livejournal.com", "personId": 8},
+{"username":"mondrusek8","secret":"Mc6aC2","email":"ctrett8@umich.edu", "personId": 9},
+{"username":"bstickings9","secret":"yHpU4md8v","email":"pmorhall9@slate.com", "personId": 10},
+{"username":"hgoodshipa","secret":"qcXvnm","email":"mgilluma@eventbrite.com", "personId": 11},
+{"username":"clumberb","secret":"bqnilTg7tNZ","email":"scornerb@tripadvisor.com", "personId": 12},
+{"username":"bkedwellc","secret":"6aovb6","email":"pcontic@joomla.org", "personId": 13},
+{"username":"tmoond","secret":"ZT2h96sFJC5M","email":"sfarnfieldd@princeton.edu", "personId": 14},
+{"username":"apreiste","secret":"bZ7yPm3Uc","email":"bmudlee@nifty.com", "personId": 15},
+{"username":"mfersonf","secret":"Qsb6NYOLkPQ","email":"obaskerfieldf@upenn.edu", "personId": 16},
+{"username":"rwardallg","secret":"62fFJkvv9OhQ","email":"spogosiang@google.pl", "personId": 17},
+{"username":"apeadenh","secret":"hSWGLd9ZeWO","email":"jsivilh@oakley.com", "personId": 18},
+{"username":"btoffanoi","secret":"hL2XRy7dF","email":"manchori@taobao.com", "personId": 19},
+{"username":"agorglerj","secret":"Sw1MAg","email":"ncropperj@mapquest.com", "personId": 20},
+{"username":"eschildk","secret":"XM3RcEuQ0U1","email":"mvallentink@indiegogo.com", "personId": 21},
+{"username":"mbuckthoughtl","secret":"nnRcizPomP6N","email":"dhoulaghanl@instagram.com", "personId": 22},
+{"username":"tcranneym","secret":"VknCqoKjY","email":"kpendrem@mozilla.org", "personId": 23},
+{"username":"sroonn","secret":"mlYlpS","email":"kclaragen@slate.com", "personId": 24},
+{"username":"gshouteo","secret":"aDmr06YFHL","email":"sjannascho@people.com.cn", "personId": 25}
+
+
+-- hasta este punto ya se reaizo la subida con http
+
+-- obtiene todas las secuencias SELECT c.relname FROM pg_class c WHERE c.relkind = 'S'; al igual que este SELECT * FROM information_schema.sequences; 
+insert into mr_user 
+(username, secret, email, cat_user_status, mr_person_id, status, tx_date, tx_user, tx_host, created)
+VALUES
+('alan123','$2a$12$ukcW8zjaLO3Uel2TsF.Kcec9XuXaITCFit71NhlH7IJ7lbFHU2oeS','alan.zarate@ucb.edu.bo','active',1,1,'2022-11-16 10:29:06.57127','anonymous','localhost','2022-11-16 10:29:06.57127'),
+('emerson123','$2a$12$SH/vy.wxUOJ4XkKNSRLUfuL9ARBIP3wkz1nRGMdEO3wHTmjXSF3WC','emerson.chipana@ucb.edu.bo','active',2,1,'2022-11-16 10:33:03.005835','anonymous','localhost','2022-11-16 10:33:03.005835'),
+('nikolai123','$2a$12$xfd1plE/ylzCyn18ndlg1eoFHGME3Tsb/2Ht9JI9OFq1d0ygWwBBi','nikolai.lopez@ucb.edu.bo','active',3,1,'2022-11-16 10:37:45.06663','anonymous','localhost','2022-11-16 10:37:45.06663'),
+('rbull3','$2a$12$LrirwGtDhtL45guAzjixFOFiO25oCLk6fVIa0y4lbUUVMKdCVmNZO','gskeen3@addtoany.com','active',4,1,'2022-11-16 10:37:57.957434','anonymous','localhost','2022-11-16 10:37:57.957434'),
+('bphinnis4','$2a$12$g3BuGEvYHa2ClHDxodqJ6eqrYEF0UH9kGCuT0dnz2/Wix.GcrStwq','hgosse4@amazonaws.com','active',5,1,'2022-11-16 10:38:08.798832','anonymous','localhost','2022-11-16 10:38:08.798832'),
+('tcoles5','$2a$12$vZGUntgUxsVf3SF195EkgOkxik0QlKcdzN3THtNKb8D6TkXDWTjCO','lruusa5@salon.com','active',6,1,'2022-11-16 10:38:19.765414','anonymous','localhost','2022-11-16 10:38:19.765414'),
+('gkirrens6','$2a$12$ibs/ppu15h3Bb70LcRvwv.nOZmLgx98qqP.CVbJNjTH9/j6Biq/ry','tcrosier6@ehow.com','active',7,1,'2022-11-16 10:44:09.657402','anonymous','localhost','2022-11-16 10:44:09.657402'),
+('spulver7','$2a$12$q8h3Yj9cOIRoE0/37HaB4.iefHFnzEJ8.lbl0.lebiTBCYPhn08JC','hfirmager7@livejournal.com','active',8,1,'2022-11-16 10:45:13.820411','anonymous','localhost','2022-11-16 10:45:13.820411'),
+('mondrusek8','$2a$12$uhMChzI88nzBpAmxFrfo7Otfr.k4.wN2rAp7LEQk43RWG.PGIoO3C','ctrett8@umich.edu','active',9,1,'2022-11-16 10:46:17.058464','anonymous','localhost','2022-11-16 10:46:17.058464'),
+('bstickings9','$2a$12$0ecZubjfcvKxsSCRFqFdT.31Tpw73Qtc3S539.v75JfhBO9lAlHyK','pmorhall9@slate.com','active',10,1,'2022-11-16 10:46:30.524364','anonymous','localhost','2022-11-16 10:46:30.524364'),
+('hgoodshipa','$2a$12$vxkuTFpe4PtA4VpRvBHj5OUPSMcHXGWPK4/AQSOEdU.ry8qvSazJm','mgilluma@eventbrite.com','active',11,1,'2022-11-16 10:46:42.629052','anonymous','localhost','2022-11-16 10:46:42.629052'),
+('clumberb','$2a$12$R9sTtVx1zjjHNyLMLJKzmOULeoZyV3ThPh7wmJNjTAIVjPB1KFsua','scornerb@tripadvisor.com','active',12,1,'2022-11-16 10:46:53.319393','anonymous','localhost','2022-11-16 10:46:53.319393'),
+('bkedwellc','$2a$12$XF.sWDS0hNZtlL.I1Pef/uc91Rvpvv71VVAHLRATxx6KKeblCNSn2','pcontic@joomla.org','active',13,1,'2022-11-16 10:47:02.288218','anonymous','localhost','2022-11-16 10:47:02.288218'),
+('tmoond','$2a$12$Vr4gFL39fnoStY4q3FNUruaA0WgfPYSIq1EsD95cN5VV7wg3tdbcu','sfarnfieldd@princeton.edu','active',14,1,'2022-11-16 10:47:44.566191','anonymous','localhost','2022-11-16 10:47:44.566191'),
+('apreiste','$2a$12$qFu5lNpMvzx5WUyaPWoJTOmB5LyogqgM9f4f9Wz05xn2MBGm1dVgO','bmudlee@nifty.com','active',15,1,'2022-11-16 10:47:54.159967','anonymous','localhost','2022-11-16 10:47:54.159967'),
+('mfersonf','$2a$12$BKaFqoYO57RkbosOFAIwier/bzPP8QubMQZUNBqNvLagF4ECHovfe','obaskerfieldf@upenn.edu','active',16,1,'2022-11-16 10:48:03.276277','anonymous','localhost','2022-11-16 10:48:03.276277'),
+('rwardallg','$2a$12$HZpkgJrAVuzp/hAupl4DOexqJH8QT7ylYl1m7uoB/eXLuPkVn0cDO','spogosiang@google.pl','active',17,1,'2022-11-16 10:48:12.908349','anonymous','localhost','2022-11-16 10:48:12.908349'),
+('apeadenh','$2a$12$8eRNDCqdWjEWhnxGIfvnP.A9gBnGYTTtr/Y4TXMVhxiytr7Hnm/gC','jsivilh@oakley.com','active',18,1,'2022-11-16 10:48:21.081356','anonymous','localhost','2022-11-16 10:48:21.081356'),
+('btoffanoi','$2a$12$g2JXLcIwRiObaVkOeNxFoeWWhjPJhe6vzjC1tLSFAeyTMlrGbB6u.','manchori@taobao.com','active',19,1,'2022-11-16 10:48:28.531639','anonymous','localhost','2022-11-16 10:48:28.531639'),
+('agorglerj','$2a$12$g/qqYKbzaGVfWCTXWmpsPuz2TlFva182P52AQEs4CEUnQTyfd2bpC','ncropperj@mapquest.com','active',20,1,'2022-11-16 10:48:37.066288','anonymous','localhost','2022-11-16 10:48:37.066288'),
+('eschildk','$2a$12$V6XaroTIK/FX/1su64.JeeX6Qz0aozRXxWbOuuv.3SwQlb3xMLt6O','mvallentink@indiegogo.com','active',21,1,'2022-11-16 10:48:46.145639','anonymous','localhost','2022-11-16 10:48:46.145639'),
+('mbuckthoughtl','$2a$12$Dnmpzc8DsqpvSlIPgtihXOaNFNKv4t0ZHDcj.w1YGaQDJv5wPO/EC','dhoulaghanl@instagram.com','active',22,1,'2022-11-16 10:48:54.622648','anonymous','localhost','2022-11-16 10:48:54.622648'),
+('tcranneym','$2a$12$7qtqi4s4ecBeo6PwfuE17eyaDmRj0zuZIvNhmUjogAQJS4q36M4Lm','kpendrem@mozilla.org','active',23,1,'2022-11-16 10:49:02.78644','anonymous','localhost','2022-11-16 10:49:02.78644'),
+('sroonn','$2a$12$.Btd497ayoVftyBfJowuhOClURYxFHiikIhhT4X17xDvzzEbJmmZC','kclaragen@slate.com','active',24,1,'2022-11-16 10:49:11.248055','anonymous','localhost','2022-11-16 10:49:11.248055'),
+('gshouteo','$2a$12$U.l.BaYRS45O6sQy9k2z5.6T9Vh2hzD9lpeAkSA3RL.JNVKqQZsS.','sjannascho@people.com.cn','active',25,1,'2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807'),
+
 
 
   -- los couriers  user_id { 4 ,8 ,9 ,10 ,15, 22}
@@ -333,7 +395,7 @@ VALUES
 ('Can cancel a pickup', 'cancelPickUp',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
 ('Can create a delivery', 'createDelivery',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
 ('Can cancel a delivery', 'cancelDelivery',  1, now(), 'admin', '192.168.100.10', now() ), -- simple user
-('Can accept a delivery', 'acceptDelivery',  1, now(), 'admin', '192.168.100.10', now() ), -- courier
+('Can accept a delivery', 'acceptDelivery',  1, now(), 'admin', '192.168.100.10', now() ); -- courier
 
 
 INSERT INTO MR_GROUP 
