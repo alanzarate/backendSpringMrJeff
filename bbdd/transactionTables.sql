@@ -1,4 +1,3 @@
--- aqui va el script dfe la bd principal
 -- Table: MR_ADDRESS
 CREATE TABLE MR_ADDRESS (
     MR_ADDRESS_ID serial  NOT NULL,
@@ -31,7 +30,7 @@ CREATE TABLE MR_ADDRESS_USER (
 -- Table: MR_BRANCH
 CREATE TABLE MR_BRANCH (
     MR_BRANCH_ID serial  NOT NULL,
-    NAME varchar(100)  NOT NULL,
+    BRANCH_NAME varchar(100)  NOT NULL,
     LATITUDE decimal(22,16)  NOT NULL,
     LONGITUDE decimal(22,16)  NOT NULL,
     ADDRESS_LINK varchar(254)  NOT NULL,
@@ -281,10 +280,11 @@ CREATE TABLE MR_PERSON (
     FIRST_NAME varchar(50)  NOT NULL,
     LAST_NAME varchar(50)  NOT NULL,
     NUM_PHONE varchar(20)  NOT NULL,
+    GENDER_PERSON int  NOT NULL,
     CAT_PER_STATUS varchar(50)  NOT NULL,
     STATUS smallint  NOT NULL,
-    TX_USER varchar(50)  NOT NULL,
     TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(50)  NOT NULL,
     TX_HOST varchar(50)  NOT NULL,
     CREATED timestamp  NOT NULL,
     CONSTRAINT MR_PERSON_pk PRIMARY KEY (MR_PERSON_ID)
@@ -312,8 +312,8 @@ CREATE TABLE MR_PICKUP (
 CREATE TABLE MR_ROLE (
     MR_ROLE_ID serial  NOT NULL,
     DETAIL varchar(200)  NOT NULL,
-    STATUS smallint  NOT NULL,
     CAT_ROLE varchar(50)  NOT NULL,
+    STATUS smallint  NOT NULL,
     TX_DATE timestamp  NOT NULL,
     TX_USER varchar(50)  NOT NULL,
     TX_HOST varchar(50)  NOT NULL,
@@ -383,7 +383,7 @@ CREATE TABLE MR_USER (
     USERNAME varchar(100)  NOT NULL,
     PASSWORD varchar(400)  NOT NULL,
     EMAIL varchar(254)  NOT NULL,
-    CAT_USER_STATUS int  NOT NULL,
+    CAT_USER_STATUS varchar(60)  NOT NULL,
     MR_PERSON_ID int  NOT NULL,
     STATUS smallint  NOT NULL,
     TX_DATE timestamp  NOT NULL,
@@ -405,5 +405,3 @@ CREATE TABLE MR_USER_GROUP (
     CREATED timestamp  NOT NULL,
     CONSTRAINT MR_USER_GROUP_pk PRIMARY KEY (MR_USER_GROUP_ID)
 );
-
--- End of file.
