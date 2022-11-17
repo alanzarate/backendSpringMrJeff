@@ -740,8 +740,8 @@ CREATE TABLE MR_ROLE (
 -- Table: MR_SCHEDULE
 CREATE TABLE MR_SCHEDULE (
     MR_SCHEDULE_ID serial  NOT NULL,
-    TIME_START timestamp  NOT NULL,
-    TIME_END timestamp  NOT NULL,
+    TIME_START time  NOT NULL,
+    TIME_END time  NOT NULL,
     DETAIL varchar(200)  NOT NULL,
     STATUS smallint  NOT NULL,
     TX_DATE timestamp  NOT NULL,
