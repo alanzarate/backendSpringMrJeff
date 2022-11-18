@@ -54,8 +54,6 @@ public class AuthApi {
     /**
       SOLO PARA PROPOSITOS ILUSTRATIVOS, ESTA ES LA FORMA CORRECTA EN EL ÁMBITO LABORAL.
      por el import de : import org.springframework.http.ResponseEntity;
-      @param authReqDto
-      @return
 
     @RequestMapping(value="/v2/", method = RequestMethod.POST)
     public ResponseEntity<ResponseDto<AuthResDto>> authenticationV2(@RequestBody  AuthReqDto authReqDto) {

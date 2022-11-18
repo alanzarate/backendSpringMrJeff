@@ -1,0 +1,523 @@
+--- primera aproximacion de treiggers
+-- MR_ADDRESS 		mr_address_mr_address_id_seq
+-- MR_ADDRESS_USER
+-- MR_USER -->
+-- MR_PICKUP   		mr_pickup_mr_pickup_id_seq
+-- MR_SCHEDULE  -->
+-- MR_ORDER   		mr_order_mr_order_id_seq
+-- MR_OPERATION_STATE -->
+-- MR_DELIVER
+
+SELECT * FROM information_schema.sequences;
+SELECT mr_operation_state_id FROM mr_operation_state
+where for_operation = 'order'
+AND state = 'requestedPickUp';
+
+DROP TABLE MR_ORDER;
+DROP TABLE MR_PICKUP;
+DROP TABLE MR_ADDRESS;
+DROP TABLE MR_PICKUP_HIST;
+
+SELECT * FROM MR_ORDER;
+SELECT * FROM MR_PICKUP;
+SELECT * FROM MR_ADDRESS;
+SELECT * FROM MR_PICKUP_HIST;
+ c_addressId integer,
+	 c_userId integer,
+	 c_timeId integer,
+	 c_fecha date
+
+CALL insertPickUpNewDirecction(0,'Direccion 1', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 1', 'https:asdasd', 1,2,'2022-11-16' );
+CALL insertPickUpNewDirecction(0,'Direccion 2', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 2', 'https:asdasd', 7,1,'2022-11-16' );
+CALL insertPickUpNewDirecction(0,'Direccion 3', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 3', 'https:asdasd', 3,4,'2022-11-16' );
+CALL insertPickUpOldDirecction(2, 5, 5, '2022-11-16');
+CALL insertPickUpOldDirecction(1,  7, 7, '2022-11-16');
+CALL insertPickUpNewDirecction(0,'Direccion 4', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 4', 'https:asdasd', 9,2,'2022-11-16' );
+CALL insertPickUpNewDirecction(0,'Direccion 5', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 5', 'https:asdasd', 9,2,'2022-11-16' );
+CALL insertPickUpOldDirecction(3,  11, 11, '2022-11-16');
+
+DROP PROCEDURE insertPickUpNewDirecction;
+DROP PROCEDURE insertPickUpOldDirecction;
+
+CREATE OR REPLACE PROCEDURE insertPickUpNewDirecction(
+	c_addressId integer,
+	 c_name varchar(100),
+	 c_latitude decimal,
+	 c_longitude decimal ,
+	 c_detail varchar(100),
+	 c_addressLink varchar(100),
+	 c_userId integer,
+	 c_timeId integer,
+	 c_fecha date
+)
+language plpgsql
+AS $$
+DECLARE
+	valInitStatePickUp integer;
+	valInitStateOrder integer;
+BEGIN
+	valInitStatePickUp := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'pickup'
+							AND state = 'requestedPickUp');
+	valInitStateOrder := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'order'
+							AND state = 'requestedPickUp');
+
+	INSERT INTO MR_ADDRESS (LATITUDE, LONGITUDE, NAME, DETAIL, ADDRESS_LINK,
+						   STATUS, TX_DATE, TX_USER, TX_HOST, CREATED)
+	VALUES (c_latitude,c_longitude, c_name, c_detail, c_addressLink,
+		   1,now() , 'admin', 'localhost',now());
+
+	INSERT INTO MR_ORDER (COMMENT, MR_COUPONS_ID, MR_USER_ID, MR_OPERATION_STATE_ID, MR_PAYMENT_METHOD_ID,
+						 PAY_CASH, MR_INVOICE_ID, STATUS, TX_DATE, TX_USER,
+						 TX_HOST, CREATED )
+	VALUES (' ', null , c_userId, valInitStateOrder, null ,-1 , null , 1, now(), 'admin', 'localhost', now()  );
+
+	INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( c_fecha, valInitStatePickUp, (SELECT currval('mr_address_mr_address_id_seq'))  , 0 , c_timeId,
+		   (SELECT currval('mr_order_mr_order_id_seq'))  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+
+
+END;
+$$;
+
+
+
+CREATE OR REPLACE PROCEDURE insertPickUpOldDirecction(
+	c_addressId integer,
+	 c_userId integer,
+	 c_timeId integer,
+	 c_fecha date
+)
+language plpgsql
+AS $$
+DECLARE
+	valInitStatePickUp integer;
+	valInitStateOrder integer;
+BEGIN
+	valInitStatePickUp := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'pickup'
+							AND state = 'requestedPickUp');
+	valInitStateOrder := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'order'
+							AND state = 'requestedPickUp');
+
+
+	INSERT INTO MR_ORDER (COMMENT, MR_COUPONS_ID, MR_USER_ID, MR_OPERATION_STATE_ID, MR_PAYMENT_METHOD_ID,
+						 PAY_CASH, MR_INVOICE_ID, STATUS, TX_DATE, TX_USER,
+						 TX_HOST, CREATED )
+	VALUES (' ', null , c_userId, valInitStateOrder, null ,-1 , null , 1, now(), 'admin', 'localhost', now()  );
+
+	INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( c_fecha, valInitStatePickUp, c_addressId  , 0 , c_timeId,
+		   (SELECT currval('mr_order_mr_order_id_seq'))  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+END;
+$$;
+
+
+
+
+
+
+CREATE TABLE MR_ORDER (
+    MR_ORDER_ID serial  NOT NULL,
+    COMMENT varchar(511)  NOT NULL,
+    MR_COUPONS_ID int  NULL,
+    MR_USER_ID int  NOT NULL,
+    MR_OPERATION_STATE_ID int  NOT NULL,
+    MR_PAYMENT_METHOD_ID int  NULL,
+    PAY_CASH smallint  NOT NULL,
+    MR_INVOICE_ID int  NULL,
+    STATUS smallint  NOT NULL,
+    TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(60)  NOT NULL,
+    TX_HOST varchar(60)  NOT NULL,
+    CREATED timestamp  NOT NULL,
+    CONSTRAINT MR_ORDER_pk PRIMARY KEY (MR_ORDER_ID)
+);
+
+
+CREATE TABLE MR_PICKUP (
+    MR_PICKUP_ID serial  NOT NULL,
+    DATE_OPE date  NOT NULL,
+    MR_OPERATION_STATE_ID int  NOT NULL,
+    MR_ADDRESS_ID int  NOT NULL,
+    MR_USER_ID int  NOT NULL,
+    MR_SCHEDULE_ID int  NOT NULL,
+    MR_ORDER_ID int  NOT NULL,
+    CODE_GEN varchar(256)  NOT NULL,
+    STATUS smallint  NOT NULL,
+    TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(60)  NOT NULL,
+    TX_HOST varchar(60)  NOT NULL,
+    CREATED timestamp  NOT NULL,
+    CONSTRAINT MR_PICKUP_pk PRIMARY KEY (MR_PICKUP_ID)
+);
+CREATE TABLE MR_ADDRESS (
+    MR_ADDRESS_ID serial  NOT NULL,
+    LATITUDE decimal(22,16)  NOT NULL,
+    LONGITUDE decimal(22,16)  NOT NULL,
+    NAME varchar(100)  NOT NULL,
+    DETAIL varchar(100)  NOT NULL,
+    ADDRESS_LINK varchar(254)  NOT NULL,
+    STATUS smallint  NOT NULL,
+    TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(50)  NOT NULL,
+    TX_HOST varchar(50)  NOT NULL,
+    CREATED timestamp  NOT NULL,
+    CONSTRAINT MR_ADDRESS_pk PRIMARY KEY (MR_ADDRESS_ID)
+);
+CREATE TABLE MR_PICKUP_HIST (
+    MR_PICKUP_HIST_ID serial  NOT NULL,
+    MR_PICKUP_ID int  NOT NULL,
+    MR_OPERATION_STATE_ID int  NOT NULL,
+    MOMENT timestamp  NOT NULL,
+    CONSTRAINT MR_PICKUP_HIST_pk PRIMARY KEY (MR_PICKUP_HIST_ID)
+);
+
+
+CREATE OR REPLACE FUNCTION setHistoricPickUpUpdate()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+	IF NEW.MR_OPERATION_STATE_ID <> OLD.MR_OPERATION_STATE_ID THEN
+			 INSERT INTO MR_PICKUP_HIST(MR_PICKUP_ID,MR_OPERATION_STATE_ID,MOMENT)
+			 VALUES(OLD.MR_PICKUP_ID,NEW.MR_OPERATION_STATE_ID , now() );
+	END IF;
+
+
+
+	RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE TRIGGER triggerSetHistoricPickUpUpdate
+AFTER UPDATE
+ON MR_PICKUP
+FOR EACH ROW
+EXECUTE PROCEDURE setHistoricPickUpUpdate();
+
+
+CREATE OR REPLACE FUNCTION setHistoricPickUpInsert()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+
+			 INSERT INTO MR_PICKUP_HIST(MR_PICKUP_ID,MR_OPERATION_STATE_ID,MOMENT)
+			 VALUES(NEW.MR_PICKUP_ID,NEW.MR_OPERATION_STATE_ID , now() );
+
+
+
+	RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE TRIGGER triggerSetHistoricPickUpInsert
+AFTER INSERT
+ON MR_PICKUP
+FOR EACH ROW
+EXECUTE PROCEDURE setHistoricPickUpInsert();
+
+
+
+
+INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( now() , 1, 1  , 0 , 1,
+		   1  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+
+select * from mr_pickup_hist
+select * from mr_pickup
+
+UPDATE MR_PICKUP
+SET MR_OPERATION_STATE_ID = 12
+where mr_pickup_id = 8;
+
+
+-- segunda aproximacion de storage procedures
+-- MR_ADDRESS 		mr_address_mr_address_id_seq
+-- MR_ADDRESS_USER
+-- MR_USER -->
+-- MR_PICKUP   		mr_pickup_mr_pickup_id_seq
+-- MR_SCHEDULE  -->
+-- MR_ORDER   		mr_order_mr_order_id_seq
+-- MR_OPERATION_STATE -->
+-- MR_DELIVER
+
+SELECT * FROM information_schema.sequences;
+SELECT mr_operation_state_id FROM mr_operation_state
+where for_operation = 'pickup'
+AND state = 'requestedPickUp';
+
+DROP TABLE MR_ORDER;
+DROP TABLE MR_PICKUP;
+DROP TABLE MR_ADDRESS;
+DROP TABLE MR_PICKUP_HIST;
+
+SELECT * FROM MR_ORDER;
+SELECT * FROM MR_PICKUP;
+SELECT * FROM MR_ADDRESS;
+SELECT * FROM MR_PICKUP_HIST;
+ c_addressId integer,
+	 c_userId integer,
+	 c_timeId integer,
+	 c_fecha date
+
+CALL insertPickUpNewDirecction(0,'Direccion 1', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 1', 'https:asdasd', 1,2,'2022-11-16' );
+CALL insertPickUpNewDirecction(0,'Direccion 2', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 2', 'https:asdasd', 7,1,'2022-11-16' );
+CALL insertPickUpNewDirecction(0,'Direccion 3', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 3', 'https:asdasd', 3,4,'2022-11-16' );
+CALL insertPickUpOldDirecction(2, 5, 5, '2022-11-16');
+CALL insertPickUpOldDirecction(1,  7, 7, '2022-11-16');
+CALL insertPickUpNewDirecction(0,'Direccion 4', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 4', 'https:asdasd', 9,2,'2022-11-16' );
+CALL insertPickUpNewDirecction(0,'Direccion 5', -16.522523658467236, -68.10490805079921, 'detalle de la direccion 5', 'https:asdasd', 9,2,'2022-11-16' );
+CALL insertPickUpOldDirecction(3,  11, 11, '2022-11-16');
+
+DROP PROCEDURE insertPickUpNewDirecction;
+DROP PROCEDURE insertPickUpOldDirecction;
+
+CREATE OR REPLACE PROCEDURE insertPickUpNewDirecction(
+	c_addressId integer,
+	 c_name varchar(100),
+	 c_latitude decimal,
+	 c_longitude decimal ,
+	 c_detail varchar(100),
+	 c_addressLink varchar(100),
+	 c_userId integer,
+	 c_timeId integer,
+	 c_fecha date
+)
+language plpgsql
+AS $$
+DECLARE
+	valInitStatePickUp integer;
+	valInitStateOrder integer;
+BEGIN
+	valInitStatePickUp := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'pickup'
+							AND state = 'requestedPickUp');
+	valInitStateOrder := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'order'
+							AND state = 'requestedPickUp');
+
+	INSERT INTO MR_ADDRESS (LATITUDE, LONGITUDE, NAME, DETAIL, ADDRESS_LINK,
+						   STATUS, TX_DATE, TX_USER, TX_HOST, CREATED)
+	VALUES (c_latitude,c_longitude, c_name, c_detail, c_addressLink,
+		   1,now() , 'admin', 'localhost',now());
+
+	INSERT INTO MR_ORDER (COMMENT, MR_COUPONS_ID, MR_USER_ID, MR_OPERATION_STATE_ID, MR_PAYMENT_METHOD_ID,
+						 PAY_CASH, MR_INVOICE_ID, STATUS, TX_DATE, TX_USER,
+						 TX_HOST, CREATED )
+	VALUES (' ', null , c_userId, valInitStateOrder, null ,-1 , null , 1, now(), 'admin', 'localhost', now()  );
+
+	INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( c_fecha, valInitStatePickUp, (SELECT currval('mr_address_mr_address_id_seq'))  , 0 , c_timeId,
+		   (SELECT currval('mr_order_mr_order_id_seq'))  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+
+
+END;
+$$;
+
+
+
+CREATE OR REPLACE PROCEDURE insertPickUpOldDirecction(
+	c_addressId integer,
+	 c_userId integer,
+	 c_timeId integer,
+	 c_fecha date
+)
+language plpgsql
+AS $$
+DECLARE
+	valInitStatePickUp integer;
+	valInitStateOrder integer;
+BEGIN
+	valInitStatePickUp := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'pickup'
+							AND state = 'requestedPickUp');
+	valInitStateOrder := (SELECT mr_operation_state_id FROM mr_operation_state
+							where for_operation = 'order'
+							AND state = 'requestedPickUp');
+
+
+	INSERT INTO MR_ORDER (COMMENT, MR_COUPONS_ID, MR_USER_ID, MR_OPERATION_STATE_ID, MR_PAYMENT_METHOD_ID,
+						 PAY_CASH, MR_INVOICE_ID, STATUS, TX_DATE, TX_USER,
+						 TX_HOST, CREATED )
+	VALUES (' ', null , c_userId, valInitStateOrder, null ,-1 , null , 1, now(), 'admin', 'localhost', now()  );
+
+	INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( c_fecha, valInitStatePickUp, c_addressId  , 0 , c_timeId,
+		   (SELECT currval('mr_order_mr_order_id_seq'))  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+END;
+$$;
+
+
+
+
+
+
+CREATE TABLE MR_ORDER (
+    MR_ORDER_ID serial  NOT NULL,
+    COMMENT varchar(511)  NOT NULL,
+    MR_COUPONS_ID int  NULL,
+    MR_USER_ID int  NOT NULL,
+    MR_OPERATION_STATE_ID int  NOT NULL,
+    MR_PAYMENT_METHOD_ID int  NULL,
+    PAY_CASH smallint  NOT NULL,
+    MR_INVOICE_ID int  NULL,
+    STATUS smallint  NOT NULL,
+    TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(60)  NOT NULL,
+    TX_HOST varchar(60)  NOT NULL,
+    CREATED timestamp  NOT NULL,
+    CONSTRAINT MR_ORDER_pk PRIMARY KEY (MR_ORDER_ID)
+);
+
+
+CREATE TABLE MR_PICKUP (
+    MR_PICKUP_ID serial  NOT NULL,
+    DATE_OPE date  NOT NULL,
+    MR_OPERATION_STATE_ID int  NOT NULL,
+    MR_ADDRESS_ID int  NOT NULL,
+    MR_USER_ID int  NOT NULL,
+    MR_SCHEDULE_ID int  NOT NULL,
+    MR_ORDER_ID int  NOT NULL,
+    CODE_GEN varchar(256)  NOT NULL,
+    STATUS smallint  NOT NULL,
+    TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(60)  NOT NULL,
+    TX_HOST varchar(60)  NOT NULL,
+    CREATED timestamp  NOT NULL,
+    CONSTRAINT MR_PICKUP_pk PRIMARY KEY (MR_PICKUP_ID)
+);
+CREATE TABLE MR_ADDRESS (
+    MR_ADDRESS_ID serial  NOT NULL,
+    LATITUDE decimal(22,16)  NOT NULL,
+    LONGITUDE decimal(22,16)  NOT NULL,
+    NAME varchar(100)  NOT NULL,
+    DETAIL varchar(100)  NOT NULL,
+    ADDRESS_LINK varchar(254)  NOT NULL,
+    STATUS smallint  NOT NULL,
+    TX_DATE timestamp  NOT NULL,
+    TX_USER varchar(50)  NOT NULL,
+    TX_HOST varchar(50)  NOT NULL,
+    CREATED timestamp  NOT NULL,
+    CONSTRAINT MR_ADDRESS_pk PRIMARY KEY (MR_ADDRESS_ID)
+);
+CREATE TABLE MR_PICKUP_HIST (
+    MR_PICKUP_HIST_ID serial  NOT NULL,
+    MR_PICKUP_ID int  NOT NULL,
+    MR_OPERATION_STATE_ID int  NOT NULL,
+    MOMENT timestamp  NOT NULL,
+    CONSTRAINT MR_PICKUP_HIST_pk PRIMARY KEY (MR_PICKUP_HIST_ID)
+);
+
+
+CREATE OR REPLACE FUNCTION setHistoricPickUpUpdate()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+	IF NEW.MR_OPERATION_STATE_ID <> OLD.MR_OPERATION_STATE_ID THEN
+			 INSERT INTO MR_PICKUP_HIST(MR_PICKUP_ID,MR_OPERATION_STATE_ID,MOMENT)
+			 VALUES(OLD.MR_PICKUP_ID,NEW.MR_OPERATION_STATE_ID , now() );
+	END IF;
+
+
+
+	RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE TRIGGER triggerSetHistoricPickUpUpdate
+AFTER UPDATE
+ON MR_PICKUP
+FOR EACH ROW
+EXECUTE PROCEDURE setHistoricPickUpUpdate();
+
+
+CREATE OR REPLACE FUNCTION setHistoricPickUpInsert()
+RETURNS TRIGGER
+LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+
+			 INSERT INTO MR_PICKUP_HIST(MR_PICKUP_ID,MR_OPERATION_STATE_ID,MOMENT)
+			 VALUES(NEW.MR_PICKUP_ID,NEW.MR_OPERATION_STATE_ID , now() );
+
+
+
+	RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE TRIGGER triggerSetHistoricPickUpInsert
+AFTER INSERT
+ON MR_PICKUP
+FOR EACH ROW
+EXECUTE PROCEDURE setHistoricPickUpInsert();
+
+
+
+
+INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( now() , 1, 1  , 0 , 1,
+		   1  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+SELECT currval('mr_pickup_mr_pickup_id_seq');
+
+select * from mr_pickup_hist
+select * from mr_pickup
+
+UPDATE MR_PICKUP
+SET MR_OPERATION_STATE_ID = 12
+where mr_pickup_id = 8;
+
+INSERT INTO MR_ADDRESS (LATITUDE, LONGITUDE, NAME, DETAIL, ADDRESS_LINK,
+						   STATUS, TX_DATE, TX_USER, TX_HOST, CREATED)
+	VALUES (c_latitude,c_longitude, c_name, c_detail, c_addressLink,
+		   1,now() , 'admin', 'localhost',now());
+SELECT currval('mr_address_mr_address_id_seq');
+
+INSERT INTO MR_ORDER (COMMENT, MR_COUPONS_ID, MR_USER_ID, MR_OPERATION_STATE_ID, MR_PAYMENT_METHOD_ID,
+						 PAY_CASH, MR_INVOICE_ID, STATUS, TX_DATE, TX_USER,
+						 TX_HOST, CREATED )
+	VALUES (' ', null , c_userId, 1 , null
+			,-1 , null , 1, now(), 'admin',
+			'localhost', now()  );
+SELECT currval('mr_order_mr_order_id_seq');
+
+
+INSERT INTO MR_PICKUP (DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+						  MR_ORDER_ID, CODE_GEN, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+	VALUES ( c_fecha, valInitStatePickUp, (SELECT currval('mr_address_mr_address_id_seq'))  , 0 , c_timeId,
+		   (SELECT currval('mr_order_mr_order_id_seq'))  , 'CREARUN COIGO', 1, now(), 'admin',
+		   'localhost', now());
+
+INSERT INTO MR_ADDRESS_USER (MR_ADDRESS_ID, MR_USER_ID, STATUS, TX_DATE, TX_USER,
+						   TX_HOST ,CREATED )
+VALUES
+SELECT * FROM MR_ROLE
+

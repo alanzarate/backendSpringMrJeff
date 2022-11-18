@@ -3,7 +3,9 @@ package bo.ucb.edu.backendSpringMrJeff.dao;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface MrUserDao {
     // falta por hacer el select
     @Select("""

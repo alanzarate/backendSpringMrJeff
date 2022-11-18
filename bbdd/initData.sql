@@ -17,7 +17,7 @@
 -- MR_USER_GROUP 
 -- MR_HOLIDAYS
 -- MR_SCHEDULE
--- 
+-- MR_OPERATION_STATE
 --
 --
 --
@@ -542,3 +542,24 @@ VALUES
 ('30-10-2022','Feriado Normalito', 1, now(), 'admin', '192.168.100.10', now() ),
 ('7-1-2022','Feriado Complicado', 1, now(), 'admin', '192.168.100.10', now() );
 
+INSERT INTO MR_OPERATION_STATE
+(STATE, FOR_OPERATION, DESCRIPTION_STATE, SHOULD_SHOW, STATUS, TX_DATE, TX_USER, TX_HOST, CREATED) VALUES
+('requestedPickUp', 'order', 'Recogida solicitada', 1, 1, now(), 'admin', 'localhost', now() ),
+('pendingPickUp', 'order', 'Recogida pendiente', 1, 1, now(), 'admin', 'localhost', now() ),
+('canceledPickUp', 'order', 'Recogida cancelada', 1, 1, now(), 'admin', 'localhost', now() ),
+('doing', 'order', 'Trabajando', 1, 1, now(), 'admin', 'localhost', now() ),
+('pendingDeliver', 'order', 'Entrega pendiente', 1, 1, now(), 'admin', 'localhost', now() ),
+('canceledDeliver', 'order', 'Entrega cancelada', 1, 1, now(), 'admin', 'localhost', now() ),
+('completedOrder', 'order', 'Orden completada', 1, 1, now(), 'admin', 'localhost', now() ),
+
+('waitingForCompleted', 'delivery', 'Esperando la finalizacion del servicio', 1, 1, now(), 'admin', 'localhost', now() ),
+('requestedDeliver', 'delivery', 'Entrega - Nueva solicitud', 1, 1, now(), 'admin', 'localhost', now() ),
+('pendingDeliver', 'delivery', 'Entrega pendiente', 1, 1, now(), 'admin', 'localhost', now() ),
+('canceledDeliver', 'delivery', 'Entrega cancelada', 1, 1, now(), 'admin', 'localhost', now() ),
+('completeDeliver', 'delivery', 'Entrega completada', 1, 1, now(), 'admin', 'localhost', now() ),
+
+('requestedPickUp', 'pickup', 'Recogida - Nueva solicitud', 1, 1, now(), 'admin', 'localhost', now() ),
+('pendingPickUp', 'pickup', 'Recogida pendiente', 1, 1, now(), 'admin', 'localhost', now() ),
+('canceledPickUp', 'pickup', 'Recogida cancelada', 1, 1, now(), 'admin', 'localhost', now() ),
+('completedPickUp', 'pickup', 'Recogida completada', 1, 1, now(), 'admin', 'localhost', now() ),
+('requestedDeliver', 'order', 'Entrega solicitada', 1, 1, now(), 'admin', 'localhost', now() );
