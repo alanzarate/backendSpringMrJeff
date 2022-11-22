@@ -4,6 +4,7 @@ import bo.ucb.edu.backendSpringMrJeff.bl.SecurityBl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import java.util.List;
 import java.util.Map;
@@ -72,12 +73,28 @@ public class AuthUtil {
      * @param jwt token JWT
      */
     public static void verifyHasRole(String jwt, String role) {
-        List<String> roles = JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
-                .build()
-                .verify(jwt)
-                .getClaim("roles").asList(String.class);
-        if(!roles.contains(role)) {
-            throw new MrJeffException("No tiene permisos para realizar esta acción");
+        try{
+            List<String> roles = JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+                    .build()
+                    .verify(jwt)
+                    .getClaim("roles").asList(String.class);
+            if(!roles.contains(role)) {
+                throw new MrJeffException("No tiene permisos para realizar esta acción");
+            }
+        }catch (TokenExpiredException ex){
+            throw new MrJeffException("Token ha expirado");
+        }
+
+    }
+
+    public static String getUserNameFromToken(String jwt) {
+        try{
+            return  JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+                    .build()
+                    .verify(jwt)
+                    .getSubject();
+        }catch (TokenExpiredException ex){
+            throw new MrJeffException("Token ha expirado");
         }
     }
 }

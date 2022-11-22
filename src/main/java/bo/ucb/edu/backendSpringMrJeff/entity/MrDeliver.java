@@ -2,8 +2,8 @@ package bo.ucb.edu.backendSpringMrJeff.entity;
 
 import java.util.Date;
 
-public class MrPickUp {
-    private Integer mrPickUpId;
+public class MrDeliver {
+    private Integer mrDeliverId;
     private Date dateOpe;
     private Integer mrOperationStateId;
     private Integer mrAddressId;
@@ -16,12 +16,10 @@ public class MrPickUp {
     private String txUser;
     private String txHost;
     private Date created;
-    private Date timePlaned;
 
-
-    public MrPickUp(){}
-    public MrPickUp(Integer mrPickUpId, Date dateOpe, Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, String codeGen, Integer status, Date txDate, String txUser, String txHost, Date created) {
-        this.mrPickUpId = mrPickUpId;
+    public MrDeliver(){}
+    public MrDeliver(Integer mrDeliverId, Date dateOpe, Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, String codeGen, Integer status, Date txDate, String txUser, String txHost, Date created) {
+        this.mrDeliverId = mrDeliverId;
         this.dateOpe = dateOpe;
         this.mrOperationStateId = mrOperationStateId;
         this.mrAddressId = mrAddressId;
@@ -36,39 +34,12 @@ public class MrPickUp {
         this.created = created;
     }
 
-    @Override
-    public String toString() {
-        return "MrPickUp{" +
-                "mrPickUpId=" + mrPickUpId +
-                ", dateOpe=" + dateOpe +
-                ", mrOperationStateId=" + mrOperationStateId +
-                ", mrAddressId=" + mrAddressId +
-                ", mrUserId=" + mrUserId +
-                ", mrScheduleId=" + mrScheduleId +
-                ", mrOrderId=" + mrOrderId +
-                ", codeGen='" + codeGen + '\'' +
-                ", status=" + status +
-                ", txDate=" + txDate +
-                ", txUser='" + txUser + '\'' +
-                ", txHost='" + txHost + '\'' +
-                ", created=" + created +
-                '}';
+    public Integer getMrDeliverId() {
+        return mrDeliverId;
     }
 
-    public Date getTimePlaned() {
-        return timePlaned;
-    }
-
-    public void setTimePlaned(Date timePlaned) {
-        this.timePlaned = timePlaned;
-    }
-
-    public Integer getMrPickUpId() {
-        return mrPickUpId;
-    }
-
-    public void setMrPickUpId(Integer mrPickUpId) {
-        this.mrPickUpId = mrPickUpId;
+    public void setMrDeliverId(Integer mrDeliverId) {
+        this.mrDeliverId = mrDeliverId;
     }
 
     public Date getDateOpe() {

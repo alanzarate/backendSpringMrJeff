@@ -5,13 +5,16 @@ import bo.ucb.edu.backendSpringMrJeff.bl.PrePickUpBl;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrScheduleDao;
 import bo.ucb.edu.backendSpringMrJeff.dto.AuthResDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.NewPickUpDto;
+import bo.ucb.edu.backendSpringMrJeff.dto.PrePickUpResDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.ResponseDto;
+import bo.ucb.edu.backendSpringMrJeff.entity.MrBranch;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrSchedule;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
 import bo.ucb.edu.backendSpringMrJeff.util.MrJeffException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,11 +55,69 @@ public class TestApi {
         try{
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt, "createPickUp");
-            pickUpBl.createNewPickUp(newPickUpDto);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            pickUpBl.createNewPickUp(newPickUpDto, userName);
             return new ResponseDto<>("New pick up created succesfully", null, true);
         }catch (MrJeffException ex){
             return new ResponseDto<>(ex.getMessage(), null, false);
         }
+
+    }
+
+    @GetMapping("/prePickUp/{userId}")
+    public ResponseDto<PrePickUpResDto> getPrePickUpInfo(@PathVariable(name = "userId") Integer userId){
+
+
+        try{
+            PrePickUpResDto prePickUpResDto = new PrePickUpResDto();
+            //prePickUpResDto.setAddressId(prePickUpBl.getAddressesIdFromUser(userId));
+            prePickUpResDto.setDaysPermited(14);
+            prePickUpResDto.setAddress(prePickUpBl.getAddressInfoFromUserDto(userId));
+            prePickUpResDto.setHolidays(prePickUpBl.getHolidaysInOneMonthStrings());
+            prePickUpResDto.setHoras(prePickUpBl.getAllSchedule());
+
+            System.out.println("Llego la solicitud de transmitir la nueva informacion");
+            System.out.println(prePickUpResDto);
+            //prePickUpResDto.setBranches(prePickUpBl.getBranchesInfoWithNoStatus());
+            return new ResponseDto<>(prePickUpResDto, "Se obtuvo los datos con exito", true);
+
+
+        }catch (Exception ex){
+
+            System.out.println(ex.getMessage());
+            return new ResponseDto<>(null, "Ocurrio un error", false);
+
+        }
+
+        //return Map.of("holidays", prePickUpBl.getHolidaysInOneMonthStrings());
+    }
+
+
+
+    // http://localhost:7777/api/v1/test/prePickUp/branches?lat=-16.642356933136433&lng=-68.28699611991307
+    @RequestMapping(method = RequestMethod.GET, value = "/prePickUp/branches")
+    public ResponseDto<Map<String, Boolean>> isThisAddressInBounds(
+            @RequestParam Map<String, String> customQuery
+    ){
+        double lat = Double.parseDouble(customQuery.get("lat"));
+        double lng = Double.parseDouble(customQuery.get("lng"));
+
+        System.out.println("(testapi) == (isThisAddressInBounds) lat: " + lat + " lng: "+lng);
+
+        MrBranch branchSelected;
+        branchSelected = prePickUpBl.isThisAddressValidForService(lat, lng);
+        Map<String, Boolean> response = new HashMap<>();
+        System.out.println(branchSelected);
+        if(branchSelected == null){
+            response.put("isValidForService", false);
+            System.out.println("llega aqui 1");
+        }else{
+            System.out.println("llega aqui 2");
+            response.put("isValidForService", true);
+        }
+
+
+        return new ResponseDto<>(response, "parece que llego aqui", true);
 
     }
 }

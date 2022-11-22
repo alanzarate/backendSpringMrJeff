@@ -9,11 +9,13 @@ import java.util.List;
 public interface MrHolidayDao {
 
     @Select("""
-            SELECT date_holiday, detail, status
+            SELECT mr_holidays_id, date_holiday, detail, status, tx_date, tx_user,
+            	   tx_host, created
             FROM MR_HOLIDAYS
-            WHERE status = 1
-            AND date_holiday >= now()
-            AND date_holiday < now() +  interval '1 month';
+            WHERE
+            	date_holiday >= now()
+            AND date_holiday < now() + '1 month'
+            AND status = 1;
             """)
     List<MrHoliday> getHolidaysInOneMonth();
 
@@ -25,4 +27,7 @@ public interface MrHolidayDao {
             AND date_holiday < now() +  interval '1 month';
             """)
     List<String> getHolidaysInOneMonthStrings();
+
+
+
 }

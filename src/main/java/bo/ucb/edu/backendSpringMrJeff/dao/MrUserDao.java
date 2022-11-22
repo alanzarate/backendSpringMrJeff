@@ -45,7 +45,7 @@ public interface MrUserDao {
     void createUserWithPersonId(MrUser mrUser, Integer mrPersonId);
 
     @Select("""
-           mr_user_id, username, secret, status, email,
+           SELECT mr_user_id as userId, username, secret, status, email,
                                  	cat_user_status, mr_person_id, status, tx_date, tx_user,
                                  	tx_host
                                  FROM

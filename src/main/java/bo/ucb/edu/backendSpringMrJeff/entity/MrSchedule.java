@@ -5,16 +5,16 @@ public class MrSchedule {
     private String timeStart;
     private String timeEnd;
     private String detail;
-    private Integer status;
+
 
     public MrSchedule(){}
 
-    public MrSchedule(Integer mrScheduleId, String timeStart, String timeEnd, String detail, Integer status) {
+    public MrSchedule(Integer mrScheduleId, String timeStart, String timeEnd, String detail ) {
         this.mrScheduleId = mrScheduleId;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.detail = detail;
-        this.status = status;
+
     }
 
     public Integer getMrScheduleId() {
@@ -49,13 +49,7 @@ public class MrSchedule {
         this.detail = detail;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {
@@ -64,7 +58,7 @@ public class MrSchedule {
                 ", timeStart='" + timeStart + '\'' +
                 ", timeEnd='" + timeEnd + '\'' +
                 ", detail='" + detail + '\'' +
-                ", status=" + status +
+
                 '}';
     }
 }

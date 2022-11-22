@@ -18,8 +18,8 @@
 -- MR_HOLIDAYS
 -- MR_SCHEDULE
 -- MR_OPERATION_STATE
---
---
+-- MR_ADDRESS
+-- MR_ADDRESS_USER
 --
 --
 --
@@ -563,3 +563,18 @@ INSERT INTO MR_OPERATION_STATE
 ('canceledPickUp', 'pickup', 'Recogida cancelada', 1, 1, now(), 'admin', 'localhost', now() ),
 ('completedPickUp', 'pickup', 'Recogida completada', 1, 1, now(), 'admin', 'localhost', now() ),
 ('requestedDeliver', 'order', 'Entrega solicitada', 1, 1, now(), 'admin', 'localhost', now() );
+
+
+
+--some address
+
+insert into MR_ADDRESS (latitude, longitude, name, detail, address_link, status, tx_date, tx_user, tx_host, created) VALUES
+(-16.488640377619657, -68.14072533084831, 'terminal de buses', 'ubicacion para el ususario 5', 'https://goo.gl/maps/Zu7Pp3qR6apQZztz6', 1, now(), 'anonym', 'localhost', now()),
+(-16.499177450759756, -68.12263949031772, 'estadium hernando ', 'ubicacion 1 para el usuario 6', 'https://goo.gl/maps/QESerdS8uwNB6nwG6', 1, now(), 'anonym', 'localhost', now()),
+(-16.51889307119472, -68.11645018252703, 'teleferico amarillo', 'ubicacion 2 para el usuario 6', 'https://goo.gl/maps/B2EAv5NzfjonScCg8', 1, now(), 'anonym', 'localhost', now());
+
+
+insert into MR_ADDRESS_USER (mr_address_id, mr_user_id,  status, tx_date, tx_user, tx_host, created) VALUES
+(1, 5, 1, now(), 'anonym', 'localhost', now()),
+(2, 6, 1, now(), 'anonym', 'localhost', now()),
+(3, 6, 1, now(), 'anonym', 'localhost', now());
