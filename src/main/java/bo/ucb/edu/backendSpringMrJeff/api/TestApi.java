@@ -50,17 +50,27 @@ public class TestApi {
     }
 
     @PostMapping(value = "/pickup")
-    public ResponseDto<String> newPickUp(@RequestHeader Map<String, String> headers,
+    public ResponseDto<Map<String, Boolean>> newPickUp(@RequestHeader Map<String, String> headers,
                                          @RequestBody NewPickUpDto newPickUpDto) {
+        Map<String, Boolean> response = new HashMap<>();
+        ResponseDto<Map<String, Boolean>> responseDto = new ResponseDto<>();
         try{
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt, "createPickUp");
             String userName = AuthUtil.getUserNameFromToken(jwt);
             pickUpBl.createNewPickUp(newPickUpDto, userName);
-            return new ResponseDto<>("New pick up created succesfully", null, true);
+
+            response.put("wasCreated", true);
+            responseDto.setMessage("Se creo el pick up exitosamente");
+            responseDto.setSuccess(true);
         }catch (MrJeffException ex){
-            return new ResponseDto<>(ex.getMessage(), null, false);
+            response.put("wasCreated", false);
+            responseDto.setMessage("Lo sentimos no se pudo crear el pickup");
+            responseDto.setSuccess(false);
         }
+        responseDto.setData(response);
+        return responseDto;
+
 
     }
 
