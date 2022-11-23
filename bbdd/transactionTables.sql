@@ -412,33 +412,33 @@ CREATE TABLE H_MR_USER_GROUP (
 );
 
 -- Table: MR_ADDRESS
-CREATE TABLE MR_ADDRESS (
-    MR_ADDRESS_ID serial  NOT NULL,
-    LATITUDE decimal(22,16)  NOT NULL,
-    LONGITUDE decimal(22,16)  NOT NULL,
-    NAME varchar(100)  NOT NULL,
-    DETAIL varchar(100)  NOT NULL,
-    ADDRESS_LINK varchar(254)  NOT NULL,
-    STATUS smallint  NOT NULL,
-    TX_DATE timestamp  NOT NULL,
-    TX_USER varchar(50)  NOT NULL,
-    TX_HOST varchar(50)  NOT NULL,
-    CREATED timestamp  NOT NULL,
-    CONSTRAINT MR_ADDRESS_pk PRIMARY KEY (MR_ADDRESS_ID)
-);
+    CREATE TABLE MR_ADDRESS (
+        MR_ADDRESS_ID serial  NOT NULL,
+        LATITUDE decimal(22,16)  NOT NULL,
+        LONGITUDE decimal(22,16)  NOT NULL,
+        NAME varchar(100)  NOT NULL,
+        DETAIL varchar(100)  NOT NULL,
+        ADDRESS_LINK varchar(254)  NOT NULL,
+        STATUS smallint  NOT NULL,
+        TX_DATE timestamp  NOT NULL,
+        TX_USER varchar(50)  NOT NULL,
+        TX_HOST varchar(50)  NOT NULL,
+        CREATED timestamp  NOT NULL,
+        CONSTRAINT MR_ADDRESS_pk PRIMARY KEY (MR_ADDRESS_ID)
+    );
 
--- Table: MR_ADDRESS_USER
-CREATE TABLE MR_ADDRESS_USER (
-    MR_ADDRESS_USER_ID serial  NOT NULL,
-    MR_ADDRESS_ID int  NOT NULL,
-    MR_USER_ID int  NOT NULL,
-    STATUS smallint  NOT NULL,
-    TX_DATE timestamp  NOT NULL,
-    TX_USER varchar(60)  NOT NULL,
-    TX_HOST varchar(60)  NOT NULL,
-    CREATED timestamp  NOT NULL,
-    CONSTRAINT MR_ADDRESS_USER_pk PRIMARY KEY (MR_ADDRESS_USER_ID)
-);
+    -- Table: MR_ADDRESS_USER
+    CREATE TABLE MR_ADDRESS_USER (
+        MR_ADDRESS_USER_ID serial  NOT NULL,
+        MR_ADDRESS_ID int  NOT NULL,
+        MR_USER_ID int  NOT NULL,
+        STATUS smallint  NOT NULL,
+        TX_DATE timestamp  NOT NULL,
+        TX_USER varchar(60)  NOT NULL,
+        TX_HOST varchar(60)  NOT NULL,
+        CREATED timestamp  NOT NULL,
+        CONSTRAINT MR_ADDRESS_USER_pk PRIMARY KEY (MR_ADDRESS_USER_ID)
+    );
 
 -- Table: MR_BRANCH
 CREATE TABLE MR_BRANCH (
@@ -553,6 +553,7 @@ CREATE TABLE MR_DELIVER (
     MR_SCHEDULE_ID int  NOT NULL,
     MR_ORDER_ID int  NOT NULL,
     CODE_GEN varchar(256)  NOT NULL,
+    TIMESTAMP_PLANED timestamp NOT NULL,
     STATUS smallint  NOT NULL,
     TX_DATE timestamp  NOT NULL,
     TX_USER varchar(60)  NOT NULL,
@@ -732,6 +733,7 @@ CREATE TABLE MR_PICKUP (
     MR_SCHEDULE_ID int  NOT NULL,
     MR_ORDER_ID int  NOT NULL,
     CODE_GEN varchar(256)  NOT NULL,
+    TIMESTAMP_PLANED timestamp NOT NULL,
     STATUS smallint  NOT NULL,
     TX_DATE timestamp  NOT NULL,
     TX_USER varchar(60)  NOT NULL,

@@ -1,20 +1,27 @@
-package bo.ucb.edu.backendSpringMrJeff.entity;
+package bo.ucb.edu.backendSpringMrJeff.entity.auxiliar;
 
-public class MrSchedule {
+public class HoursDesc {
     private Integer mrScheduleId;
     private String timeStart;
     private String timeEnd;
     private String detail;
 
-
-    public MrSchedule(){}
-
-    public MrSchedule(Integer mrScheduleId, String timeStart, String timeEnd, String detail ) {
+    public HoursDesc(){}
+    public HoursDesc(int mrScheduleId, String timeStart, String timeEnd, String detail) {
         this.mrScheduleId = mrScheduleId;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.detail = detail;
+    }
 
+    @Override
+    public String toString() {
+        return "HoursDesc{" +
+                "mrScheduleId=" + mrScheduleId +
+                ", timeStart='" + timeStart + '\'' +
+                ", timeEnd='" + timeEnd + '\'' +
+                ", detail='" + detail + '\'' +
+                '}';
     }
 
     public Integer getMrScheduleId() {
@@ -47,18 +54,5 @@ public class MrSchedule {
 
     public void setDetail(String detail) {
         this.detail = detail;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "MrSchedule{" +
-                "mrScheduleId=" + mrScheduleId +
-                ", timeStart='" + timeStart + '\'' +
-                ", timeEnd='" + timeEnd + '\'' +
-                ", detail='" + detail + '\'' +
-
-                '}';
     }
 }
