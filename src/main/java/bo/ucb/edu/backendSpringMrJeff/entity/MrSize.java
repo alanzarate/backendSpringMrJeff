@@ -2,20 +2,20 @@ package bo.ucb.edu.backendSpringMrJeff.entity;
 
 import java.util.Date;
 
-public class MrCategoryCloth {
-    private Integer mrCategoryClothId;
-    private String category;
+public class MrSize {
+    private Integer mrSizeId;
+    private String size;
     private Integer status;
     private Date txDate;
     private String txUser;
     private String txHost;
     private Date created;
 
-    public MrCategoryCloth(){}
+    public MrSize(){}
 
-    public MrCategoryCloth(Integer mrCategoryClothId, String category, Integer status, Date txDate, String txUser, String txHost, Date created) {
-        this.mrCategoryClothId = mrCategoryClothId;
-        this.category = category;
+    public MrSize(Integer mrSizeId, String size, Integer status, Date txDate, String txUser, String txHost, Date created) {
+        this.mrSizeId = mrSizeId;
+        this.size = size;
         this.status = status;
         this.txDate = txDate;
         this.txUser = txUser;
@@ -23,20 +23,20 @@ public class MrCategoryCloth {
         this.created = created;
     }
 
-    public Integer getMrCategoryClothId() {
-        return mrCategoryClothId;
+    public Integer getMrSizeId() {
+        return mrSizeId;
     }
 
-    public void setMrCategoryClothId(Integer mrCategoryClothId) {
-        this.mrCategoryClothId = mrCategoryClothId;
+    public void setMrSizeId(Integer mrSizeId) {
+        this.mrSizeId = mrSizeId;
     }
 
-    public String getCategory() {
-        return category;
+    public String getSize() {
+        return size;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public Integer getStatus() {
@@ -81,9 +81,9 @@ public class MrCategoryCloth {
 
     @Override
     public String toString() {
-        return "MrCategoryCloth{" +
-                "mrCategoryClothId=" + mrCategoryClothId +
-                ", category='" + category + '\'' +
+        return "MrSize{" +
+                "mrSizeId=" + mrSizeId +
+                ", size='" + size + '\'' +
                 ", status=" + status +
                 ", txDate=" + txDate +
                 ", txUser='" + txUser + '\'' +
@@ -91,4 +91,5 @@ public class MrCategoryCloth {
                 ", created=" + created +
                 '}';
     }
+    
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import bo.ucb.edu.backendSpringMrJeff.dao.MrCategoryClothDao;
-import bo.ucb.edu.backendSpringMrJeff.entity.MrCategoryCloth;
+import bo.ucb.edu.backendSpringMrJeff.dto.CategoryClothDto;
 
 @Service
 public class CategoryBl {
@@ -15,7 +15,7 @@ public class CategoryBl {
         this.mrCategoryClothDao = mrCategoryClothDao;
     }
 
-    public List<MrCategoryCloth> findAllCategoryCloth(){
+    public List<CategoryClothDto> findAllCategoryCloth(){
         return mrCategoryClothDao.findAllCategoryCloth();
     }
 }

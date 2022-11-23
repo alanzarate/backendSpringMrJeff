@@ -12,9 +12,4 @@ public class OrderBl {
         this.mrOrderDao = mrOrderDao;
     }
 
-
-    public void addClothingsoOrder(Integer orderId, Integer clothingId, Integer quantity){
-        mrOrderDao.addClothingToOrder(orderId, clothingId, quantity);
-    }
-
 }

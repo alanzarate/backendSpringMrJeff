@@ -1,4 +1,4 @@
-package bo.ucb.edu.backendSpringMrJeff.entity;
+package bo.ucb.edu.backendSpringMrJeff.dto;
 
 public class MrClothingCard {
     private Integer clothingId;

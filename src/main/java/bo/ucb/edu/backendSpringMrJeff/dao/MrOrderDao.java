@@ -35,9 +35,7 @@ public interface MrOrderDao {
                 """)
         void addClothingToOrder(Double price, Integer quantity, Integer mrServiceId, Integer mrOrderId);
 
-        @Select("""
-                
-                        """;)
+
 
         
 

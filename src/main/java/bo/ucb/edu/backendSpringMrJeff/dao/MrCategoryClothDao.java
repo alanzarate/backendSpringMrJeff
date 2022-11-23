@@ -3,7 +3,8 @@ package bo.ucb.edu.backendSpringMrJeff.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
-import bo.ucb.edu.backendSpringMrJeff.entity.MrCategoryCloth;
+
+import bo.ucb.edu.backendSpringMrJeff.dto.CategoryClothDto;
 
 @Component
 public interface MrCategoryClothDao {
@@ -15,7 +16,7 @@ public interface MrCategoryClothDao {
             WHERE
             	status = 1;
             """)
-    List<MrCategoryCloth> findAllCategoryCloth();
+    List<CategoryClothDto> findAllCategoryCloth();
 }
 
     

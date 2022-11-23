@@ -2,20 +2,22 @@ package bo.ucb.edu.backendSpringMrJeff.entity;
 
 import java.util.Date;
 
-public class MrCategoryCloth {
-    private Integer mrCategoryClothId;
-    private String category;
+public class MrServiceDetail {
+    private Integer mrServiceDetailId;
+    private String title;
+    private String description;
     private Integer status;
     private Date txDate;
     private String txUser;
     private String txHost;
     private Date created;
+    
+    public MrServiceDetail(){}
 
-    public MrCategoryCloth(){}
-
-    public MrCategoryCloth(Integer mrCategoryClothId, String category, Integer status, Date txDate, String txUser, String txHost, Date created) {
-        this.mrCategoryClothId = mrCategoryClothId;
-        this.category = category;
+    public MrServiceDetail(Integer mrServiceDetailId, String title, String description, Integer status, Date txDate, String txUser, String txHost, Date created) {
+        this.mrServiceDetailId = mrServiceDetailId;
+        this.title = title;
+        this.description = description;
         this.status = status;
         this.txDate = txDate;
         this.txUser = txUser;
@@ -23,20 +25,28 @@ public class MrCategoryCloth {
         this.created = created;
     }
 
-    public Integer getMrCategoryClothId() {
-        return mrCategoryClothId;
+    public Integer getMrServiceDetailId() {
+        return mrServiceDetailId;
     }
 
-    public void setMrCategoryClothId(Integer mrCategoryClothId) {
-        this.mrCategoryClothId = mrCategoryClothId;
+    public void setMrServiceDetailId(Integer mrServiceDetailId) {
+        this.mrServiceDetailId = mrServiceDetailId;
     }
 
-    public String getCategory() {
-        return category;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getStatus() {
@@ -81,9 +91,10 @@ public class MrCategoryCloth {
 
     @Override
     public String toString() {
-        return "MrCategoryCloth{" +
-                "mrCategoryClothId=" + mrCategoryClothId +
-                ", category='" + category + '\'' +
+        return "MrServiceDetail{" +
+                "mrServiceDetailId=" + mrServiceDetailId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
                 ", status=" + status +
                 ", txDate=" + txDate +
                 ", txUser='" + txUser + '\'' +
@@ -91,4 +102,5 @@ public class MrCategoryCloth {
                 ", created=" + created +
                 '}';
     }
+    
 }
