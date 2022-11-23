@@ -1,0 +1,12 @@
+
+GET http://localhost:7777/api/v1/clothing/1
+Content-Type: application/json
+Accept: application/json
+
+{
+   
+};
+
+
+
+
