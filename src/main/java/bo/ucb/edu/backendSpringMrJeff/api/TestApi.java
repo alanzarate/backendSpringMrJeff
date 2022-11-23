@@ -2,11 +2,10 @@ package bo.ucb.edu.backendSpringMrJeff.api;
 
 import bo.ucb.edu.backendSpringMrJeff.bl.PickUpBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.PrePickUpBl;
-import bo.ucb.edu.backendSpringMrJeff.dao.MrScheduleDao;
+import bo.ucb.edu.backendSpringMrJeff.bl.PresentationForWorkerBl;
 import bo.ucb.edu.backendSpringMrJeff.dto.*;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrBranch;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrSchedule;
-import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
 import bo.ucb.edu.backendSpringMrJeff.util.MrJeffException;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +21,11 @@ public class TestApi {
 
     private PrePickUpBl prePickUpBl;
     private PickUpBl pickUpBl;
-    public TestApi(PrePickUpBl prePickUpBl, PickUpBl pickUpBl) {
+    private PresentationForWorkerBl presentationForWorkerBl;
+    public TestApi(PrePickUpBl prePickUpBl, PickUpBl pickUpBl, PresentationForWorkerBl presentationForWorkerBl) {
         this.pickUpBl = pickUpBl;
         this.prePickUpBl = prePickUpBl;
+        this.presentationForWorkerBl = presentationForWorkerBl;
     }
 
     @GetMapping("/hours")
@@ -130,11 +131,20 @@ public class TestApi {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/available")
-    public ResponseDto<OperationInfoResDto> getAvailablePickUps(){
-        return new ResponseDto<>(
-          pickUpBl.getListOfAvailablePickUp(),
-                "parece que funciona",
-                true
-        );
+    public ResponseDto<OperationInfoResDto> getAgendaForCourier(@RequestHeader Map<String, String> headers){
+
+        try{
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.verifyHasRole(jwt, "viewPickUp");
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            OperationInfoResDto result =  presentationForWorkerBl.getResponseOfOperationsByUser(userName);
+
+            return new ResponseDto<>(result, "Se obtuvieron los datos correctamente", true);
+        }catch (MrJeffException ex){
+            System.out.println(ex.getMessage());
+            return new ResponseDto<>(null, "Ocurrio un error", false);
+        }
+
+
     }
 }

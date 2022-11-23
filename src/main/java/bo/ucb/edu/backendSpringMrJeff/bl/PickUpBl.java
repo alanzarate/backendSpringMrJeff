@@ -7,6 +7,7 @@ import bo.ucb.edu.backendSpringMrJeff.entity.MrAddress;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrOrder;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.DeliverDetailModel;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.OperationInfoModel;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
 import bo.ucb.edu.backendSpringMrJeff.util.DateTransforming;
@@ -27,19 +28,22 @@ public class PickUpBl {
     private MrHolidayDao mrHolidayDao;
     private MrScheduleDao mrScheduleDao;
     private MrUserDao mrUserDao;
+    private MrDeliverDao mrDeliverDao;
     public PickUpBl(
             MrAddressDao mrAddressDao,
             MrOrderDao mrOrderDao,
             MrPickUpDao mrPickUpDao,
             MrHolidayDao mrHolidayDao,
             MrScheduleDao mrScheduleDao,
-            MrUserDao mrUserDao) {
+            MrUserDao mrUserDao,
+            MrDeliverDao mrDeliverDao) {
         this.mrAddressDao = mrAddressDao;
         this.mrOrderDao = mrOrderDao;
         this.mrPickUpDao = mrPickUpDao;
         this.mrHolidayDao = mrHolidayDao;
         this.mrScheduleDao = mrScheduleDao;
         this.mrUserDao = mrUserDao;
+        this.mrDeliverDao = mrDeliverDao;
     }
 
     public void createNewPickUp(NewPickUpDto newPickUpDto, String userName){
@@ -56,7 +60,6 @@ public class PickUpBl {
         if(newPickUpDto.getUserId() == 0){
 
             MrUser user = mrUserDao.findByUsername(userName);
-            System.out.println("(pickupbl) == (createNewPickUp) == (user) "+ user + " username: "+userName);
             mrOrder.setMrUserId(user.getUserId());
         }else{
             mrOrder.setMrUserId(newPickUpDto.getUserId());
@@ -107,38 +110,6 @@ public class PickUpBl {
 
 
         mrPickUpDao.createNewPickUp(mrPickUp);
-
-
-
-   }
-
-   public OperationInfoResDto getListOfAvailablePickUp (){
-       OperationInfoResDto response = new OperationInfoResDto();
-
-        List<PickUpDetailsModel> availablePickUps = mrPickUpDao.getPickUpAvailableForService();
-        List<OperationInfoModel> pickUps = new ArrayList<>();
-
-        for(PickUpDetailsModel p : availablePickUps){
-            String date = DateTransforming.getBeautyDate(p.getDateOpe());
-            pickUps.add(
-              new OperationInfoModel(
-                    p.getMrPickUpId(),
-                      date,
-                      DateTransforming.getShortTime(p.getTimeStart()),
-                      DateTransforming.getShortTime(p.getTimeEnd()),
-                      p.getForOperation(),
-                      p.getLatitude(),
-                      p.getLongitude(),
-                      p.getMrOperationStateId(),
-                      p.getDescriptionState(),
-                      p.getFirstName() + " "+p.getLastName()
-              )
-            );
-
-        }
-
-        response.setAvailableOperations(pickUps);
-        return response;
 
 
 
