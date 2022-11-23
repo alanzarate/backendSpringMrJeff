@@ -9,6 +9,5 @@ spring:
     username: postgres
     password: 123456
 
-    probando el gitignore
 
 
