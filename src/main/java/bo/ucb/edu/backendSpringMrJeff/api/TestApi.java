@@ -3,12 +3,10 @@ package bo.ucb.edu.backendSpringMrJeff.api;
 import bo.ucb.edu.backendSpringMrJeff.bl.PickUpBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.PrePickUpBl;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrScheduleDao;
-import bo.ucb.edu.backendSpringMrJeff.dto.AuthResDto;
-import bo.ucb.edu.backendSpringMrJeff.dto.NewPickUpDto;
-import bo.ucb.edu.backendSpringMrJeff.dto.PrePickUpResDto;
-import bo.ucb.edu.backendSpringMrJeff.dto.ResponseDto;
+import bo.ucb.edu.backendSpringMrJeff.dto.*;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrBranch;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrSchedule;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
 import bo.ucb.edu.backendSpringMrJeff.util.MrJeffException;
 import org.springframework.web.bind.annotation.*;
@@ -129,5 +127,14 @@ public class TestApi {
 
         return new ResponseDto<>(response, "parece que llego aqui", true);
 
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/available")
+    public ResponseDto<OperationInfoResDto> getAvailablePickUps(){
+        return new ResponseDto<>(
+          pickUpBl.getListOfAvailablePickUp(),
+                "parece que funciona",
+                true
+        );
     }
 }

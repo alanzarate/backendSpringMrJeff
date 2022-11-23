@@ -2,16 +2,22 @@ package bo.ucb.edu.backendSpringMrJeff.bl;
 
 import bo.ucb.edu.backendSpringMrJeff.dao.*;
 import bo.ucb.edu.backendSpringMrJeff.dto.NewPickUpDto;
+import bo.ucb.edu.backendSpringMrJeff.dto.OperationInfoResDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrAddress;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrOrder;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.OperationInfoModel;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
+import bo.ucb.edu.backendSpringMrJeff.util.DateTransforming;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PickUpBl {
@@ -104,7 +110,39 @@ public class PickUpBl {
 
 
 
-    }
+   }
+
+   public OperationInfoResDto getListOfAvailablePickUp (){
+       OperationInfoResDto response = new OperationInfoResDto();
+
+        List<PickUpDetailsModel> availablePickUps = mrPickUpDao.getPickUpAvailableForService();
+        List<OperationInfoModel> pickUps = new ArrayList<>();
+
+        for(PickUpDetailsModel p : availablePickUps){
+            String date = DateTransforming.getBeautyDate(p.getDateOpe());
+            pickUps.add(
+              new OperationInfoModel(
+                    p.getMrPickUpId(),
+                      date,
+                      DateTransforming.getShortTime(p.getTimeStart()),
+                      DateTransforming.getShortTime(p.getTimeEnd()),
+                      p.getForOperation(),
+                      p.getLatitude(),
+                      p.getLongitude(),
+                      p.getMrOperationStateId(),
+                      p.getDescriptionState(),
+                      p.getFirstName() + " "+p.getLastName()
+              )
+            );
+
+        }
+
+        response.setAvailableOperations(pickUps);
+        return response;
+
+
+
+   }
 
 
 }
