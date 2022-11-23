@@ -578,3 +578,4 @@ insert into MR_ADDRESS_USER (mr_address_id, mr_user_id,  status, tx_date, tx_use
 (1, 5, 1, now(), 'anonym', 'localhost', now()),
 (2, 6, 1, now(), 'anonym', 'localhost', now()),
 (3, 6, 1, now(), 'anonym', 'localhost', now());
+

@@ -553,6 +553,7 @@ CREATE TABLE MR_DELIVER (
     MR_SCHEDULE_ID int  NOT NULL,
     MR_ORDER_ID int  NOT NULL,
     CODE_GEN varchar(256)  NOT NULL,
+    TIMESTAMP_PLANED timestamp NOT NULL,
     STATUS smallint  NOT NULL,
     TX_DATE timestamp  NOT NULL,
     TX_USER varchar(60)  NOT NULL,

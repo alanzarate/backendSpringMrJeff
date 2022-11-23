@@ -9,3 +9,65 @@
     "timeId":2,
     "date":"2022-11-16"
 }
+
+
+{
+    "data": {
+        "schedule": [
+            {
+                "day": "2022-10-20",
+                "hours": [
+                    {
+                        "mrScheduleId": 4,
+                        "timeStart": "13:00:00",
+                        "timeEnd": "14:00:00",
+                        "detail": "Horario de la tarde"
+                    },
+                    {
+                        "mrScheduleId": 5,
+                        "timeStart": "13:00:00",
+                        "timeEnd": "14:00:00",
+                        "detail": "Horario de la tarde"
+                    }
+                ]
+            },
+            {
+                "day": "2022-10-20",
+                "hours": [
+                    {
+                        "mrScheduleId": 1,
+                        "timeStart": "9:00:00",
+                        "timeEnd": "10:00:00",
+                        "detail": "Horario de la tarde"
+                    },
+                    {
+                        "mrScheduleId": 2,
+                        "timeStart": "10:00:00",
+                        "timeEnd": "11:00:00",
+                        "detail": "Horario de la tarde"
+                    }
+                ]
+            }
+        ],
+        "address": [
+            {
+                "mrAddressId": 10,
+                "latitude": -16.5225236584672,
+                "longitude": -68.1049080507992,
+                "name": "Las normandias",
+                "detail": "Un nonito lugar para pasar en family",
+                "addressLink": "https://goo.gl/maps/Dy4WFH5pgpFqycpf9"
+            },
+            {
+                "mrAddressId": 11,
+                "latitude": -20.24172647170695,
+                "longitude": -70.14014415092436,
+                "name": "Iquique",
+                "detail": "Un nonito lugar para pasar en family",
+                "addressLink": "https://goo.gl/maps/Dy4WFH5pgpFqycpf9"
+            }
+        ]
+    },
+    "message": "Se obtuvo los datos con exito",
+    "success": true
+}

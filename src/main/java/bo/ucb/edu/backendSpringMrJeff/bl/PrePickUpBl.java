@@ -1,15 +1,12 @@
 package bo.ucb.edu.backendSpringMrJeff.bl;
 
-import bo.ucb.edu.backendSpringMrJeff.dao.MrAddressDao;
-import bo.ucb.edu.backendSpringMrJeff.dao.MrBranchDao;
-import bo.ucb.edu.backendSpringMrJeff.dao.MrHolidayDao;
-import bo.ucb.edu.backendSpringMrJeff.dao.MrScheduleDao;
+import bo.ucb.edu.backendSpringMrJeff.dao.*;
 import bo.ucb.edu.backendSpringMrJeff.dto.AddressResDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.OutBranchDto;
-import bo.ucb.edu.backendSpringMrJeff.entity.MrAddress;
-import bo.ucb.edu.backendSpringMrJeff.entity.MrBranch;
-import bo.ucb.edu.backendSpringMrJeff.entity.MrHoliday;
-import bo.ucb.edu.backendSpringMrJeff.entity.MrSchedule;
+import bo.ucb.edu.backendSpringMrJeff.entity.*;
+import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.HoursDesc;
+import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.Schedule;
+import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.ScheduleDesc;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,17 +19,20 @@ public class PrePickUpBl {
     private MrHolidayDao mrHolidayDao;
     private MrBranchDao mrBranchDao;
     private MrAddressDao mrAddressDao;
+    private MrUserDao mrUserDao;
 
     public PrePickUpBl(
             MrScheduleDao mrScheduleDao,
             MrHolidayDao mrHolidayDao,
             MrBranchDao mrBranchDao,
-            MrAddressDao mrAddressDao
+            MrAddressDao mrAddressDao,
+            MrUserDao mrUserDao
     ) {
         this.mrScheduleDao = mrScheduleDao;
         this.mrHolidayDao = mrHolidayDao;
         this.mrBranchDao = mrBranchDao;
         this.mrAddressDao = mrAddressDao;
+        this.mrUserDao = mrUserDao;
     }
 
     public List<MrSchedule> getAllSchedule(){
@@ -145,5 +145,43 @@ public class PrePickUpBl {
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
         return Math.sqrt(distance);
+    }
+
+    // new form more, security
+    public Schedule getPrePickInfoV2(int userId, String username){
+        Integer currentUser = userId;
+        Schedule schedule = new Schedule();
+        if(userId == 0){
+            MrUser currentUserObj = mrUserDao.findByUsername(username);
+            currentUser = currentUserObj.getUserId();
+        }
+
+
+
+
+        List<String> holidaysList = getHolidaysInOneMonthStrings();
+        List<AddressResDto> infoAddress = getAddressInfoFromUserDto(userId);
+        List<MrSchedule> horarios = getAllSchedule();
+
+        // ingresando los datos a un arraylist
+        List<HoursDesc> hoursDescList = new ArrayList<>();
+        for(MrSchedule hor: horarios){
+            HoursDesc h = new HoursDesc(hor.getMrScheduleId(), hor.getTimeStart(), hor.getTimeEnd(), hor.getDetail());
+            hoursDescList.add(h);
+        }
+
+        Date currentDate = new Date();
+        List<ScheduleDesc> desc = new ArrayList<>();
+//        while(desc.size() <= 14){
+//            // currentDate > otherDate = 1
+//            if(currentDate.compareTo())
+//
+//            ScheduleDesc scheduleDesc = new ScheduleDesc();
+//
+//            String day, List<HoursDesc> hours
+//
+//        }
+
+        return schedule;
     }
 }
