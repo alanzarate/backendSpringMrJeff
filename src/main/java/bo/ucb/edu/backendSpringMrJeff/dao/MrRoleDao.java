@@ -17,7 +17,7 @@ public interface MrRoleDao {
                           AND role.status = 1
                           AND group_role.status = 1
                           AND user_group.status = 1
-                          AND usr.status = 1
+                          AND usr.status = 1 ;
             """)
-    public List<MrRole> findRolesByUsername(String username);
+     List<MrRole> findRolesByUsername(String username);
 }

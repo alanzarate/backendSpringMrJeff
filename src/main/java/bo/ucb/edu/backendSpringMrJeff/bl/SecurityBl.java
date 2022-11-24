@@ -67,7 +67,8 @@ public class SecurityBl {
                 // se consulta por los roles que tiene el usuario
 
                 List<MrRole> roles = mrRoleDao.findRolesByUsername(credentials.username());
-                System.out.println("(bl/securityBl/authenticate) -"+ roles);
+
+                System.out.println("usernam>" + credentials.username()+"(bl/securityBl/authenticate) -"+ roles);
                 List<String> roleasAsString = new ArrayList<>();
 
                 for(MrRole role: roles){
@@ -75,7 +76,7 @@ public class SecurityBl {
                 }
 
                  // FIXME: Error en la segurrida
-
+                    System.out.println(roleasAsString);
                 result = generateTokenJwt(credentials.username(), 30000, roleasAsString);
             } else {
                 System.out.println("Las constraseñas no coinciden");

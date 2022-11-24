@@ -373,6 +373,7 @@ VALUES
 --{"username":"tcranneym","secret":"VknCqoKjY","email":"kpendrem@mozilla.org", "personId": 23},
 --{"username":"sroonn","secret":"mlYlpS","email":"kclaragen@slate.com", "personId": 24},
 --{"username":"gshouteo","secret":"aDmr06YFHL","email":"sjannascho@people.com.cn", "personId": 25}
+--{"username":"alan123","secret":"admin123","email":"alan@gmail.com", "personId": 1}   to uso este
 
 
 -- hasta este punto ya se reaizo la subida con http
@@ -506,6 +507,7 @@ VALUES
 (23, 3, 1, now(), 'admin', '192.168.100.10', now() ), 
 (24, 3, 1, now(), 'admin', '192.168.100.10', now() ),
 (25, 3 , 1, now(), 'admin', '192.168.100.10', now() );
+(26, 3 , 1, now(), 'admin', '192.168.100.10', now() );
 
 --insert into H_MR_ATENTION_SPAN (MR_ATENTION_SPAN_ID, TIME_BEGIN, TIME_END, STATUS, TX_DATE, TX_USER, TX_HOST)
 -- VALUES (1, '12:30', '01:55', 1, '20-12-2022', 'anonym', 'localhost');

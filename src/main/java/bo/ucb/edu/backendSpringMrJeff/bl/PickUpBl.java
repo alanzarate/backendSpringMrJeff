@@ -2,16 +2,23 @@ package bo.ucb.edu.backendSpringMrJeff.bl;
 
 import bo.ucb.edu.backendSpringMrJeff.dao.*;
 import bo.ucb.edu.backendSpringMrJeff.dto.NewPickUpDto;
+import bo.ucb.edu.backendSpringMrJeff.dto.OperationInfoResDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrAddress;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrOrder;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.DeliverDetailModel;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.OperationInfoModel;
+import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
+import bo.ucb.edu.backendSpringMrJeff.util.DateTransforming;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PickUpBl {
@@ -21,19 +28,22 @@ public class PickUpBl {
     private MrHolidayDao mrHolidayDao;
     private MrScheduleDao mrScheduleDao;
     private MrUserDao mrUserDao;
+    private MrDeliverDao mrDeliverDao;
     public PickUpBl(
             MrAddressDao mrAddressDao,
             MrOrderDao mrOrderDao,
             MrPickUpDao mrPickUpDao,
             MrHolidayDao mrHolidayDao,
             MrScheduleDao mrScheduleDao,
-            MrUserDao mrUserDao) {
+            MrUserDao mrUserDao,
+            MrDeliverDao mrDeliverDao) {
         this.mrAddressDao = mrAddressDao;
         this.mrOrderDao = mrOrderDao;
         this.mrPickUpDao = mrPickUpDao;
         this.mrHolidayDao = mrHolidayDao;
         this.mrScheduleDao = mrScheduleDao;
         this.mrUserDao = mrUserDao;
+        this.mrDeliverDao = mrDeliverDao;
     }
 
     public void createNewPickUp(NewPickUpDto newPickUpDto, String userName){
@@ -50,7 +60,6 @@ public class PickUpBl {
         if(newPickUpDto.getUserId() == 0){
 
             MrUser user = mrUserDao.findByUsername(userName);
-            System.out.println("(pickupbl) == (createNewPickUp) == (user) "+ user + " username: "+userName);
             mrOrder.setMrUserId(user.getUserId());
         }else{
             mrOrder.setMrUserId(newPickUpDto.getUserId());
@@ -96,7 +105,7 @@ public class PickUpBl {
         }
 
 
-           mrPickUp.setTimePlaned(dateStamp.getTime());
+           mrPickUp.setTimestampPlaned(dateStamp.getTime());
 
 
 
@@ -104,7 +113,7 @@ public class PickUpBl {
 
 
 
-    }
+   }
 
 
 }

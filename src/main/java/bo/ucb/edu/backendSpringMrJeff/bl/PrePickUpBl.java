@@ -91,6 +91,11 @@ public class PrePickUpBl {
         return response;
     }
 
+    public List<AddressResDto> getAddressInfoFromUserDtoByUsername(String username){
+        MrUser user = mrUserDao.findByUsername(username);
+        return getAddressInfoFromUserDto(user.getUserId());
+    }
+
     public MrBranch isThisAddressValidForService(Double lat, Double lng){
         List<MrBranch> branches = mrBranchDao.getListOfBranches();
         int pointer = -1;

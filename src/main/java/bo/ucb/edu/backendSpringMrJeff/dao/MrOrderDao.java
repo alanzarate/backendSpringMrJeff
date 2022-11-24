@@ -3,6 +3,7 @@ package bo.ucb.edu.backendSpringMrJeff.dao;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrOrder;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,7 +37,15 @@ public interface MrOrderDao {
         void addClothingToOrder(Double price, Integer quantity, Integer mrServiceId, Integer mrOrderId);
 
 
-
+        @Update("""
+            UPDATE
+                MR_ORDER
+            SET
+                MR_OPERATION_STATE_ID = #{stateId} 
+            WHERE 
+                MR_ORDER_ID = #{ orderId } ;
+            """)
+        void updateValueOfOperationState(Integer stateId,  Integer orderId);
         
 
 
