@@ -11,6 +11,7 @@ public class MrDeliver {
     private Integer mrScheduleId;
     private Integer mrOrderId;
     private String codeGen;
+    private Date timestampPlaned;
     private Integer status;
     private Date txDate;
     private String txUser;
@@ -18,7 +19,7 @@ public class MrDeliver {
     private Date created;
 
     public MrDeliver(){}
-    public MrDeliver(Integer mrDeliverId, Date dateOpe, Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, String codeGen, Integer status, Date txDate, String txUser, String txHost, Date created) {
+    public MrDeliver(Integer mrDeliverId, Date dateOpe, Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, String codeGen,Date timestampPlaned, Integer status, Date txDate, String txUser, String txHost, Date created) {
         this.mrDeliverId = mrDeliverId;
         this.dateOpe = dateOpe;
         this.mrOperationStateId = mrOperationStateId;
@@ -32,6 +33,15 @@ public class MrDeliver {
         this.txUser = txUser;
         this.txHost = txHost;
         this.created = created;
+        this.timestampPlaned = timestampPlaned;
+    }
+
+    public Date getTimestampPlaned() {
+        return timestampPlaned;
+    }
+
+    public void setTimestampPlaned(Date timestampPlaned) {
+        this.timestampPlaned = timestampPlaned;
     }
 
     public Integer getMrDeliverId() {

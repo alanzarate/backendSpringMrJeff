@@ -1,8 +1,11 @@
 package bo.ucb.edu.backendSpringMrJeff.dao;
 
+import bo.ucb.edu.backendSpringMrJeff.entity.MrDeliver;
+import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.DeliverDetailModel;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -75,4 +78,26 @@ public interface MrDeliverDao {
                         
             """)
     List<DeliverDetailModel> getDeliveriesUserInvolved(Integer userId);
+
+
+    @Select("""
+            SELECT MR_DELIVER_ID, DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+                        MR_ORDER_ID, CODE_GEN, TIMESTAMP_PLANED, STATUS, TX_DATE,
+                        TX_USER, TX_HOST ,CREATED FROM MR_DELIVER
+                       WHERE STATUS = 1
+            		   AND mr_deliver_id= #{ deliverId } ;
+            """)
+    MrDeliver getDeliverById(Integer deliverId);
+
+
+    @Update("""
+            UPDATE
+                MR_DELIVER 
+            SET 
+                MR_OPERATION_STATE_ID = #{stateId}, 
+                MR_USER_ID = #{ userId } 
+            WHERE 
+                MR_DELIVER_ID = #{ deliverId } ;
+            """)
+    void updateValueOfState(Integer stateId, Integer userId, Integer deliverId);
 }

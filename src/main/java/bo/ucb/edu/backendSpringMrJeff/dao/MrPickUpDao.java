@@ -4,6 +4,7 @@ import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface MrPickUpDao {
             MR_ORDER_ID, CODE_GEN, TIMESTAMP_PLANED, STATUS, TX_DATE,
             TX_USER, TX_HOST ,CREATED )
             VALUES ( #{ dateOpe } , 13, #{ mrAddressId } , 0 , #{ mrScheduleId },
-            	    #{ mrOrderId }  , #{ codeGen } , #{ timePlaned } ,  1, now(),
+            	    #{ mrOrderId }  , #{ codeGen } , #{ timestampPlaned } ,  1, now(),
             	    'admin', 'localhost', now() );
             """)
     void createNewPickUp(MrPickUp mrPickUp);
@@ -87,5 +88,29 @@ public interface MrPickUpDao {
                         
             """)
     List<PickUpDetailsModel> getPickUpUserInvolved(Integer userId);
+
+
+
+
+    @Select("""
+            SELECT MR_PICKUP_ID, DATE_OPE, MR_OPERATION_STATE_ID, MR_ADDRESS_ID, MR_USER_ID, MR_SCHEDULE_ID,
+                        MR_ORDER_ID, CODE_GEN, TIMESTAMP_PLANED, STATUS, TX_DATE,
+                        TX_USER, TX_HOST ,CREATED FROM MR_PICKUP
+                       WHERE STATUS = 1
+            		   AND mr_pickup_id= #{ pickUpId } ;
+            """)
+    MrPickUp getPickUpById(Integer pickUpId);
+
+
+    @Update("""
+            UPDATE
+                MR_PICKUP 
+            SET 
+                MR_OPERATION_STATE_ID = #{stateId}, 
+                MR_USER_ID = #{ userId } 
+            WHERE 
+                MR_PICKUP_ID = #{ pickUpId } ;
+            """)
+    void updateValueOfState(Integer stateId, Integer userId, Integer pickUpId);
 
 }

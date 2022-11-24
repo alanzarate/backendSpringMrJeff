@@ -105,7 +105,7 @@ public class PickUpBl {
         }
 
 
-           mrPickUp.setTimePlaned(dateStamp.getTime());
+           mrPickUp.setTimestampPlaned(dateStamp.getTime());
 
 
 

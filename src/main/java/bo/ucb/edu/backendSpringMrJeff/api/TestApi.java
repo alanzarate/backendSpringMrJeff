@@ -1,15 +1,18 @@
 package bo.ucb.edu.backendSpringMrJeff.api;
 
+import bo.ucb.edu.backendSpringMrJeff.bl.JobStateBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.PickUpBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.PrePickUpBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.PresentationForWorkerBl;
 import bo.ucb.edu.backendSpringMrJeff.dto.*;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrBranch;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrSchedule;
+import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
 import bo.ucb.edu.backendSpringMrJeff.util.MrJeffException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +25,16 @@ public class TestApi {
     private PrePickUpBl prePickUpBl;
     private PickUpBl pickUpBl;
     private PresentationForWorkerBl presentationForWorkerBl;
-    public TestApi(PrePickUpBl prePickUpBl, PickUpBl pickUpBl, PresentationForWorkerBl presentationForWorkerBl) {
+    private JobStateBl jobStateBl;
+    public TestApi(PrePickUpBl prePickUpBl,
+                   PickUpBl pickUpBl,
+                   PresentationForWorkerBl presentationForWorkerBl,
+                   JobStateBl jobStateBl
+                   ) {
         this.pickUpBl = pickUpBl;
         this.prePickUpBl = prePickUpBl;
         this.presentationForWorkerBl = presentationForWorkerBl;
+        this.jobStateBl = jobStateBl;
     }
 
     @GetMapping("/hours")
@@ -62,32 +71,43 @@ public class TestApi {
             response.put("wasCreated", true);
             responseDto.setMessage("Se creo el pick up exitosamente");
             responseDto.setSuccess(true);
+            System.out.println("TODO GOOD");
         }catch (MrJeffException ex){
+            System.out.println(ex.getMessage());
             response.put("wasCreated", false);
-            responseDto.setMessage("Lo sentimos no se pudo crear el pickup");
+            responseDto.setMessage(ex.getMessage());
             responseDto.setSuccess(false);
+
         }
         responseDto.setData(response);
+        System.out.println("TODO GOOD X2"+ responseDto);
         return responseDto;
 
 
     }
 
-    @GetMapping("/prePickUp/{userId}")
-    public ResponseDto<PrePickUpResDto> getPrePickUpInfo(@PathVariable(name = "userId") Integer userId){
-
+    @RequestMapping(method = RequestMethod.GET, value = "/prePickUp/{userId}")
+    public ResponseDto<PrePickUpResDto> getPrePickUpInfo(@PathVariable(name = "userId") Integer userId,
+                                                         @RequestHeader Map<String, String> headers){
 
         try{
             PrePickUpResDto prePickUpResDto = new PrePickUpResDto();
-            //prePickUpResDto.setAddressId(prePickUpBl.getAddressesIdFromUser(userId));
             prePickUpResDto.setDaysPermited(14);
-            prePickUpResDto.setAddress(prePickUpBl.getAddressInfoFromUserDto(userId));
+            if(userId == 0){
+                String jwt = AuthUtil.getTokenFromHeader(headers);
+                AuthUtil.verifyHasRole(jwt, "createPickUp");
+                String userName = AuthUtil.getUserNameFromToken(jwt);
+                prePickUpResDto.setAddress(prePickUpBl.getAddressInfoFromUserDtoByUsername(userName));
+            }else{
+                prePickUpResDto.setAddress(prePickUpBl.getAddressInfoFromUserDto(userId));
+            }
+
             prePickUpResDto.setHolidays(prePickUpBl.getHolidaysInOneMonthStrings());
             prePickUpResDto.setHoras(prePickUpBl.getAllSchedule());
 
             System.out.println("Llego la solicitud de transmitir la nueva informacion");
             System.out.println(prePickUpResDto);
-            //prePickUpResDto.setBranches(prePickUpBl.getBranchesInfoWithNoStatus());
+
             return new ResponseDto<>(prePickUpResDto, "Se obtuvo los datos con exito", true);
 
 
@@ -98,7 +118,7 @@ public class TestApi {
 
         }
 
-        //return Map.of("holidays", prePickUpBl.getHolidaysInOneMonthStrings());
+       
     }
 
 
@@ -147,4 +167,32 @@ public class TestApi {
 
 
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/confirmjob")
+    public ResponseDto<Map<String, Boolean>> workerAcceptRequest(
+            @RequestHeader Map<String, String> headers,
+            @RequestBody ConfirmJobReqDto confirmJobReqDto
+    ){
+        try{
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.verifyHasRole(jwt, "acceptPickUp");
+            AuthUtil.verifyHasRole(jwt, "acceptDelivery");
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+
+
+            Boolean hasChanged = jobStateBl.changeState(userName, confirmJobReqDto.getIdJobOperation(), confirmJobReqDto.getIdOperationStateId(), confirmJobReqDto.getOperation(), confirmJobReqDto.getAccepted());
+            if(hasChanged){
+                return new ResponseDto<>(Map.of("updateStatus", true), "Se obtuvieron los datos correctamente", true);
+            }else {
+
+                throw new MrJeffException("No cargo correctamente");
+            }
+
+        }catch (MrJeffException ex){
+            System.out.println(ex.getMessage());
+            return new ResponseDto<>(null, "Ocurrio un error", false);
+        }
+    }
+
+
 }

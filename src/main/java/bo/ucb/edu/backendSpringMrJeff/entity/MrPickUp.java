@@ -11,16 +11,17 @@ public class MrPickUp {
     private Integer mrScheduleId;
     private Integer mrOrderId;
     private String codeGen;
+    private Date timestampPlaned;
     private Integer status;
     private Date txDate;
     private String txUser;
     private String txHost;
     private Date created;
-    private Date timePlaned;
+
 
 
     public MrPickUp(){}
-    public MrPickUp(Integer mrPickUpId, Date dateOpe, Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, String codeGen, Integer status, Date txDate, String txUser, String txHost, Date created) {
+    public MrPickUp(Integer mrPickUpId, Date dateOpe, Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, String codeGen, Date timestampPlaned, Integer status, Date txDate, String txUser, String txHost, Date created) {
         this.mrPickUpId = mrPickUpId;
         this.dateOpe = dateOpe;
         this.mrOperationStateId = mrOperationStateId;
@@ -29,11 +30,20 @@ public class MrPickUp {
         this.mrScheduleId = mrScheduleId;
         this.mrOrderId = mrOrderId;
         this.codeGen = codeGen;
+        this.timestampPlaned = timestampPlaned;
         this.status = status;
         this.txDate = txDate;
         this.txUser = txUser;
         this.txHost = txHost;
         this.created = created;
+    }
+
+    public Date getTimestampPlaned() {
+        return timestampPlaned;
+    }
+
+    public void setTimestampPlaned(Date timestampPlaned) {
+        this.timestampPlaned = timestampPlaned;
     }
 
     @Override
@@ -47,6 +57,7 @@ public class MrPickUp {
                 ", mrScheduleId=" + mrScheduleId +
                 ", mrOrderId=" + mrOrderId +
                 ", codeGen='" + codeGen + '\'' +
+                ", timestampPlaned=" + timestampPlaned +
                 ", status=" + status +
                 ", txDate=" + txDate +
                 ", txUser='" + txUser + '\'' +
@@ -55,13 +66,6 @@ public class MrPickUp {
                 '}';
     }
 
-    public Date getTimePlaned() {
-        return timePlaned;
-    }
-
-    public void setTimePlaned(Date timePlaned) {
-        this.timePlaned = timePlaned;
-    }
 
     public Integer getMrPickUpId() {
         return mrPickUpId;
