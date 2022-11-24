@@ -1,4 +1,5 @@
--- Active: 1669183736363@@198.211.100.120@5432@mrjeff
+-- Active: 1669218483641@@198.211.100.120@5432@mrjeffv2
+-- 
 -- User: mrjeff
 -- Date: 2017-07-19 15:02:16
 -- Host:
@@ -72,9 +73,9 @@ SET url = 'https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com
 WHERE mr_clothing_images_id = 3;
 
 UPDATE mr_clothing_images 
-SET url = 'https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F2%2FVestido-cruzado---Azul-marino---H-M-PE.webp?alt=media&token=50f245a9-6a64-4d0d-8441-05c75365c7ef' 
+SET url = 'https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F2%2F450_1000.jpg?alt=media&token=7c73fc11-8ca8-4893-b566-cd4607a44b41' 
 WHERE mr_clothing_images_id = 4;
 
 UPDATE mr_clothing_images
-SET url = ''
-WHERE mr_clothing_images_id = 5;
+SET url = 'https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/default.jpg?alt=media&token=afcbb91c-d969-4283-b90d-c2e9d3e76f77'
+WHERE mr_clothing_images_id > 4;
