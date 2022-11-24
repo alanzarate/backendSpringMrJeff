@@ -1,6 +1,7 @@
 package bo.ucb.edu.backendSpringMrJeff.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import bo.ucb.edu.backendSpringMrJeff.dao.MrGroupDao;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrPersonDao;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrUserDao;
 import bo.ucb.edu.backendSpringMrJeff.dto.CreateUserDto;
@@ -8,14 +9,18 @@ import bo.ucb.edu.backendSpringMrJeff.entity.MrPerson;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserBl {
     private MrUserDao mrUserDao;
     private MrPersonDao mrPersonDao;
+    private MrGroupDao mrGroupDao;
 
-    public UserBl(MrUserDao mrUserDao, MrPersonDao mrPersonDao){
+    public UserBl(MrUserDao mrUserDao, MrPersonDao mrPersonDao, MrGroupDao mrGroupDao){
         this.mrUserDao = mrUserDao;
         this.mrPersonDao = mrPersonDao;
+        this.mrGroupDao = mrGroupDao;
     }
     public void createUser(CreateUserDto createUserDto){
         MrUser mrUser = new MrUser();
@@ -29,5 +34,9 @@ public class UserBl {
 
     public MrPerson findPersonByUsername(String username){
         return mrPersonDao.findPersonByUsername(username);
+    }
+
+    public List<String> getGroupUserByUsername(String username){
+        return mrGroupDao.getGroupByUserName(username);
     }
 }

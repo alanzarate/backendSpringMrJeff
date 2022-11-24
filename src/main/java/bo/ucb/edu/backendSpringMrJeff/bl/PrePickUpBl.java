@@ -4,12 +4,14 @@ import bo.ucb.edu.backendSpringMrJeff.dao.*;
 import bo.ucb.edu.backendSpringMrJeff.dto.AddressResDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.OutBranchDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.*;
+import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.AddressDesc;
 import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.HoursDesc;
 import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.Schedule;
 import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.ScheduleDesc;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +50,6 @@ public class PrePickUpBl {
         List<MrHoliday> mrHolidays = mrHolidayDao.getHolidaysInOneMonth();
 
         for(MrHoliday mrs: mrHolidays){
-            System.out.println(mrs.getDateHoliday());
             dates.add(mrs.getDateHoliday());
         }
         return dates;
@@ -156,17 +157,23 @@ public class PrePickUpBl {
     public Schedule getPrePickInfoV2(int userId, String username){
         Integer currentUser = userId;
         Schedule schedule = new Schedule();
-        if(userId == 0){
-            MrUser currentUserObj = mrUserDao.findByUsername(username);
-            currentUser = currentUserObj.getUserId();
-        }
+//        if(userId == 0){
+//            MrUser currentUserObj = mrUserDao.findByUsername(username);
+//            currentUser = currentUserObj.getUserId();
+//        }
 
 
 
 
         List<String> holidaysList = getHolidaysInOneMonthStrings();
-        List<AddressResDto> infoAddress = getAddressInfoFromUserDto(userId);
+        List<AddressResDto> infoAddress = getAddressInfoFromUserDto(currentUser);
         List<MrSchedule> horarios = getAllSchedule();
+
+        List<AddressDesc> direcciones = new ArrayList<>();
+        for(AddressResDto obj : infoAddress){
+
+            direcciones.add(new AddressDesc(obj.getMrAddressId(), obj.getLatitude(), obj.getLongitude(), obj.getName(), obj.getDetail(), obj.getAddressLink()));
+        }
 
         // ingresando los datos a un arraylist
         List<HoursDesc> hoursDescList = new ArrayList<>();
@@ -174,19 +181,57 @@ public class PrePickUpBl {
             HoursDesc h = new HoursDesc(hor.getMrScheduleId(), hor.getTimeStart(), hor.getTimeEnd(), hor.getDetail());
             hoursDescList.add(h);
         }
+        List<Date> holidaysDates = getHolidaysInOneMonth();
 
-        Date currentDate = new Date();
+        Calendar pivotDateCalendar = Calendar.getInstance();
+
+        Date now = new Date();
         List<ScheduleDesc> desc = new ArrayList<>();
-//        while(desc.size() <= 14){
-//            // currentDate > otherDate = 1
-//            if(currentDate.compareTo())
-//
-//            ScheduleDesc scheduleDesc = new ScheduleDesc();
-//
-//            String day, List<HoursDesc> hours
-//
-//        }
+        int pointer = 0;
 
+
+        while(desc.size() <= 14){
+            Date pivotDate = pivotDateCalendar.getTime();
+
+             if( schedule.containsDateInList(pivotDate, holidaysDates) == -1 ){
+                 // la fecha actual no es ta en la lista de feriados
+
+                 if( !schedule.isWeekend(pivotDate)){
+                     // no es fin de semana
+
+                     if(desc.size() < 2){
+                         List<HoursDesc> listaDeHoras = new ArrayList<>();
+                         for (HoursDesc hora : hoursDescList) {
+                             Date pointerDate = schedule.getDateFromString(pivotDate , hora.getTimeStart());
+                             if (pointerDate.compareTo(now) == 1) {
+                                 listaDeHoras.add(hora);
+                             }
+                         }
+                         if(listaDeHoras.size() > 0){
+                             desc.add(
+                                     new ScheduleDesc(
+                                             schedule.getStringFromDate(pivotDate) ,
+                                             schedule.getBeautyDate(pivotDate),
+                                             listaDeHoras
+                                     ));
+                         }
+
+                     }else{
+                         desc.add(new ScheduleDesc( schedule.getStringFromDate( pivotDate),
+                                 schedule.getBeautyDate(pivotDate), hoursDescList));
+
+                     }
+
+                 }
+             }
+            pivotDateCalendar.add(Calendar.DAY_OF_YEAR, 1);
+        }
+
+        schedule.setSchedule(desc);
+        schedule.setAddress(direcciones);
+        System.out.println(schedule);
         return schedule;
     }
+
+
 }

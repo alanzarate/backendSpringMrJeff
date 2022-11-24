@@ -1,13 +1,11 @@
 package bo.ucb.edu.backendSpringMrJeff.api;
 
-import bo.ucb.edu.backendSpringMrJeff.bl.JobStateBl;
-import bo.ucb.edu.backendSpringMrJeff.bl.PickUpBl;
-import bo.ucb.edu.backendSpringMrJeff.bl.PrePickUpBl;
-import bo.ucb.edu.backendSpringMrJeff.bl.PresentationForWorkerBl;
+import bo.ucb.edu.backendSpringMrJeff.bl.*;
 import bo.ucb.edu.backendSpringMrJeff.dto.*;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrBranch;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrSchedule;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
+import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.Schedule;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
 import bo.ucb.edu.backendSpringMrJeff.util.MrJeffException;
 import org.springframework.web.bind.annotation.*;
@@ -26,15 +24,18 @@ public class TestApi {
     private PickUpBl pickUpBl;
     private PresentationForWorkerBl presentationForWorkerBl;
     private JobStateBl jobStateBl;
+    private UserBl userBl;
     public TestApi(PrePickUpBl prePickUpBl,
                    PickUpBl pickUpBl,
                    PresentationForWorkerBl presentationForWorkerBl,
-                   JobStateBl jobStateBl
+                   JobStateBl jobStateBl,
+                   UserBl userBl
                    ) {
         this.pickUpBl = pickUpBl;
         this.prePickUpBl = prePickUpBl;
         this.presentationForWorkerBl = presentationForWorkerBl;
         this.jobStateBl = jobStateBl;
+        this.userBl = userBl;
     }
 
     @GetMapping("/hours")
@@ -118,7 +119,33 @@ public class TestApi {
 
         }
 
-       
+
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/prePickUpV2/{userId}")
+    public ResponseDto<Schedule> getPrePickUpInfoV2(@PathVariable(name = "userId") Integer userId,
+                                                    @RequestHeader Map<String, String> headers){
+        try{
+            System.out.println("Aqui 1");
+            Schedule schedule = new Schedule();
+//            String jwt = AuthUtil.getTokenFromHeader(headers);
+//            AuthUtil.verifyHasRole(jwt, "createPickUp");
+//            String userName = AuthUtil.getUserNameFromToken(jwt);
+            schedule = prePickUpBl.getPrePickInfoV2( userId , "");
+
+            System.out.println("Llego la solicitud de transmitir la nueva informacion");
+            System.out.println(schedule);
+
+            return new ResponseDto<>(schedule, "Se obtuvo los datos con exito", true);
+
+
+        }catch (Exception ex){
+            System.out.println("Aqui 2");
+            System.out.println(ex.getMessage());
+            return new ResponseDto<>(null, "Ocurrio un error", false);
+
+        }
     }
 
 
@@ -194,5 +221,20 @@ public class TestApi {
         }
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/group")
+    public ResponseDto<Map<String, List<String>>> getGroup(@RequestHeader Map<String, String> headers){
+
+        try{
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            List<String> group =  userBl.getGroupUserByUsername(userName);
+            return new ResponseDto<>(Map.of("group", group), "Se obtuvieron los datos correctamente", true);
+        }catch (MrJeffException ex){
+            System.out.println(ex.getMessage());
+            return new ResponseDto<>(null, "Ocurrio un error", false);
+        }
+
+
+    }
 
 }

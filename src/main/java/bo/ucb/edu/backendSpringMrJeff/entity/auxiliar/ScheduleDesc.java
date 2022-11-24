@@ -5,12 +5,24 @@ import java.util.List;
 public class ScheduleDesc {
     private String day;
 
+    private String beautyDay;
+
     private List<HoursDesc> hours;
 
     public ScheduleDesc(){}
-    public ScheduleDesc(String day, List<HoursDesc> hours) {
+    public ScheduleDesc(String day, String beautyDay,  List<HoursDesc> hours) {
         this.day = day;
+        this.beautyDay = beautyDay;
         this.hours = hours;
+    }
+
+
+    public String getBeautyDay() {
+        return beautyDay;
+    }
+
+    public void setBeautyDay(String beautyDay) {
+        this.beautyDay = beautyDay;
     }
 
     @Override

@@ -6,6 +6,8 @@ public class HoursDesc {
     private String timeEnd;
     private String detail;
 
+
+
     public HoursDesc(){}
     public HoursDesc(int mrScheduleId, String timeStart, String timeEnd, String detail) {
         this.mrScheduleId = mrScheduleId;

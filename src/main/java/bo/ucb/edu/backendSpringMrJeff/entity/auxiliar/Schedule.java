@@ -68,6 +68,22 @@ public class Schedule {
 
         return testDate.getTime();
     }
+    public Date getDateFromString(Date date, String time){
+        Calendar  testDate = Calendar.getInstance();
+        testDate.setTime(date);
+
+        String[] splitted = time.split(":");
+        for(int x = 0 ; x<splitted.length ; x++){
+            if(x == 0){
+                testDate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(splitted[x]) );
+            }else if(x == 1){
+                testDate.set(Calendar.MINUTE, Integer.parseInt(splitted[x]));
+            }else if(x == 3){
+                testDate.set(Calendar.SECOND, Integer.parseInt(splitted[x]));
+            }
+        }
+        return testDate.getTime();
+    }
 
     public String getStringNameFromDate (Date date){
         Format f = new SimpleDateFormat("EEEE");
@@ -87,7 +103,13 @@ public class Schedule {
         return dateFormat.format(date);
     }
 
-    public Integer dateCompareTo(Date date1, Date date2){
+    /**
+     *
+     * @param date1
+     * @param date2
+     * @return 1:  date 1 > date 2 , -1: date 1 < date 2
+     */
+    public Integer dateCompareNoTime(Date date1, Date date2){
         Calendar  c_date1 = Calendar.getInstance();
         c_date1.setTime(date1);
         c_date1.set(Calendar.HOUR_OF_DAY, 0 );
@@ -102,5 +124,45 @@ public class Schedule {
 
         return c_date1.getTime().compareTo(c_date2.getTime());
     }
+
+    public int containsDateInList(Date date, List<Date> dateList){
+        int result  = -1;
+        for(int x = 0; x < dateList.size() ; x++){
+            if(dateCompareNoTime(date, dateList.get(0)) == 0){
+                result  = x;
+                x = dateList.size() + 2 ;
+            }
+        }
+        return result;
+    }
+
+    public boolean isWeekend(Date date){
+        boolean result  = false;
+        Format f = new SimpleDateFormat("EEEE");
+        String stringDate =  f.format(date.getTime()) ;
+        if(stringDate.compareTo("Saturday") == 0 ||  stringDate.compareTo("Sunday") == 0){
+            result = true;
+        }
+        return result;
+    }
+
+    public String getBeautyDate(Date date){
+
+        String spanishDate = "";
+
+        String englishDay = getStringNameFromDate(date);
+        switch (englishDay) {
+            case "Monday" -> spanishDate = "Lunes";
+            case "Tuesday" -> spanishDate = "Martes";
+            case "Wednesday" -> spanishDate = "Miercoles";
+            case "Thursday" -> spanishDate = "Jueves";
+            case "Friday" -> spanishDate = "Viernes";
+            case "Saturday" -> spanishDate = "Sabado";
+            case "Sunday" -> spanishDate = "Domingo";
+        }
+
+        return  spanishDate + " , " + getStringFromDate(date);
+    }
+
 
 }

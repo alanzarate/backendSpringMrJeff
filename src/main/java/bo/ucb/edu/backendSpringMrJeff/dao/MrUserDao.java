@@ -56,4 +56,6 @@ public interface MrUserDao {
                                  	status = 1;
             """)
     MrUser findByUsername(String username);
+
+    
 }

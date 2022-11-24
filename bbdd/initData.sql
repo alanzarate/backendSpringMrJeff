@@ -406,8 +406,8 @@ VALUES
 ('mbuckthoughtl','$2a$12$Dnmpzc8DsqpvSlIPgtihXOaNFNKv4t0ZHDcj.w1YGaQDJv5wPO/EC','dhoulaghanl@instagram.com','active',22,1,'2022-11-16 10:48:54.622648','anonymous','localhost','2022-11-16 10:48:54.622648'),
 ('tcranneym','$2a$12$7qtqi4s4ecBeo6PwfuE17eyaDmRj0zuZIvNhmUjogAQJS4q36M4Lm','kpendrem@mozilla.org','active',23,1,'2022-11-16 10:49:02.78644','anonymous','localhost','2022-11-16 10:49:02.78644'),
 ('sroonn','$2a$12$.Btd497ayoVftyBfJowuhOClURYxFHiikIhhT4X17xDvzzEbJmmZC','kclaragen@slate.com','active',24,1,'2022-11-16 10:49:11.248055','anonymous','localhost','2022-11-16 10:49:11.248055'),
-('gshouteo','$2a$12$U.l.BaYRS45O6sQy9k2z5.6T9Vh2hzD9lpeAkSA3RL.JNVKqQZsS.','sjannascho@people.com.cn','active',25,1,'2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807');
-
+('gshouteo','$2a$12$U.l.BaYRS45O6sQy9k2z5.6T9Vh2hzD9lpeAkSA3RL.JNVKqQZsS.','sjannascho@people.com.cn','active',25,1,'2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807'),
+ ('alan123','$2a$12$r.6kU/.HjWnbB2H.Xj00a.LYiMo7rGcOrWPydX6R5mn/edkKqpHCG','alan@gmail.com','active', 1, 1, '2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807');
 
 
   -- los couriers  user_id { 4 ,8 ,9 ,10 ,15, 22}
