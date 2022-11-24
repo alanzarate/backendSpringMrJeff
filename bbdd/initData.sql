@@ -145,10 +145,10 @@ INSERT INTO MR_CLOTHING
  
 INSERT INTO MR_CLOTHING_IMAGES 
 (url, mr_clothing_id, principal_image, status, tx_date, tx_user, tx_host, created ) VALUES 
-('url 11_main', 1, 1,1, now(), 'admin', '191.168.100.10', now()), 
-('url 12', 1, 0,1, now(), 'admin', '191.168.100.10', now()),
-('url 21_main', 2, 1,1, now(), 'admin', '191.168.100.10', now()),
-('url 22', 2, 0,1, now(), 'admin', '191.168.100.10', now()), 
+('https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F1%2F1_23_11_2022.jpg?alt=media&token=56b9b292-7f13-419b-9461-6f2bfeedc1b3', 1, 1,1, now(), 'admin', '191.168.100.10', now()), 
+('https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F1%2F1.2_1669214264.jpg?alt=media&token=bb8a26e9-ec31-4852-bb43-6067c0245632', 1, 0,1, now(), 'admin', '191.168.100.10', now()),
+('https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F2%2FVestido-cruzado---Azul-marino---H-M-PE.webp?alt=media&token=50f245a9-6a64-4d0d-8441-05c75365c7ef', 2, 1,1, now(), 'admin', '191.168.100.10', now()),
+('https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F2%2F450_1000.jpg?alt=media&token=7c73fc11-8ca8-4893-b566-cd4607a44b41', 2, 0,1, now(), 'admin', '191.168.100.10', now()), 
 ('url 31_main', 3, 1,1, now(), 'admin', '191.168.100.10', now()), 
 ('url 41_main', 4, 1,1, now(), 'admin', '191.168.100.10', now()), 
 ('url 51_main', 5, 1,1, now(), 'admin', '191.168.100.10', now()), 
@@ -527,7 +527,7 @@ VALUES
 ('18:00','19:00', 'Horario de la tarde', 1, now(), 'admin', '192.168.100.10', now() );
 
  
-
+/* 
 INSERT INTO MR_HOLIDAYS
 (DATE_HOLIDAY , DETAIL, STATUS , TX_DATE , TX_USER , TX_HOST , CREATED )
 VALUES
@@ -540,7 +540,7 @@ VALUES
 ('9-12-2023', 'Dia de la pizza', 1, now(), 'admin', '192.168.100.10', now() ),
 ('10-1-2023','Dia del perro', 1, now(), 'admin', '192.168.100.10', now() ),
 ('30-10-2022','Feriado Normalito', 1, now(), 'admin', '192.168.100.10', now() ),
-('7-1-2022','Feriado Complicado', 1, now(), 'admin', '192.168.100.10', now() );
+('7-1-2022','Feriado Complicado', 1, now(), 'admin', '192.168.100.10', now() ); */
 
 INSERT INTO MR_OPERATION_STATE
 (STATE, FOR_OPERATION, DESCRIPTION_STATE, SHOULD_SHOW, STATUS, TX_DATE, TX_USER, TX_HOST, CREATED) VALUES
