@@ -110,26 +110,26 @@ public class Schedule {
      * @return 1:  date 1 > date 2 , -1: date 1 < date 2
      */
     public Integer dateCompareNoTime(Date date1, Date date2){
+        int result = date1.compareTo(date2);
         Calendar  c_date1 = Calendar.getInstance();
         c_date1.setTime(date1);
-        c_date1.set(Calendar.HOUR_OF_DAY, 0 );
-        c_date1.set(Calendar.MINUTE, 0);
-        c_date1.set(Calendar.SECOND, 0 );
-
         Calendar  c_date2 = Calendar.getInstance();
         c_date2.setTime(date2);
-        c_date2.set(Calendar.HOUR_OF_DAY, 0 );
-        c_date2.set(Calendar.MINUTE, 0);
-        c_date2.set(Calendar.SECOND, 0 );
-
-        return c_date1.getTime().compareTo(c_date2.getTime());
+        if(c_date1.get(Calendar.DAY_OF_MONTH) == c_date2.get(Calendar.DAY_OF_MONTH) &&
+                c_date1.get(Calendar.MONTH) == c_date2.get(Calendar.MONTH) &&
+                c_date1.get(Calendar.YEAR) == c_date2.get(Calendar.YEAR)
+        ){
+            result = 0;
+        }
+        return result;
     }
 
-    public int containsDateInList(Date date, List<Date> dateList){
-        int result  = -1;
+    public boolean containsDateInList(Date date, List<Date> dateList){
+        boolean result = false;
         for(int x = 0; x < dateList.size() ; x++){
-            if(dateCompareNoTime(date, dateList.get(0)) == 0){
-                result  = x;
+            if(dateCompareNoTime(date, dateList.get(x)) == 0){
+                System.out.println("Fecha contenidaa ===== >  " + date + " =======" + dateList.get(x));
+                result = true;
                 x = dateList.size() + 2 ;
             }
         }

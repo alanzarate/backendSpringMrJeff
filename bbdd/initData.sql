@@ -143,7 +143,7 @@ INSERT INTO MR_CLOTHING
 
 --clohing image
  
-INSERT INTO MR_CLOTHING_IMAGES 
+INSERT INTO
 (url, mr_clothing_id, principal_image, status, tx_date, tx_user, tx_host, created ) VALUES 
 ('https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F1%2F1_23_11_2022.jpg?alt=media&token=56b9b292-7f13-419b-9461-6f2bfeedc1b3', 1, 1,1, now(), 'admin', '191.168.100.10', now()), 
 ('https://firebasestorage.googleapis.com/v0/b/mr-jeff-394e1.appspot.com/o/images%2F1%2F1.2_1669214264.jpg?alt=media&token=bb8a26e9-ec31-4852-bb43-6067c0245632', 1, 0,1, now(), 'admin', '191.168.100.10', now()),
@@ -554,7 +554,7 @@ INSERT INTO MR_OPERATION_STATE
 ('canceledDeliver', 'order', 'Entrega cancelada', 1, 1, now(), 'admin', 'localhost', now() ),
 ('completedOrder', 'order', 'Orden completada', 1, 1, now(), 'admin', 'localhost', now() ),
 
-('waitingForCompleted', 'delivery', 'Esperando la finalizacion del servicio', 1, 1, now(), 'admin', 'localhost', now() ),
+('waitingForCompleted', 'delivery', 'Esperando la finalizacion del servicio', 1 , 1, now(), 'admin', 'localhost', now() ),
 ('requestedDeliver', 'delivery', 'Entrega - Nueva solicitud', 1, 1, now(), 'admin', 'localhost', now() ),
 ('pendingDeliver', 'delivery', 'Entrega pendiente', 1, 1, now(), 'admin', 'localhost', now() ),
 ('canceledDeliver', 'delivery', 'Entrega cancelada', 1, 1, now(), 'admin', 'localhost', now() ),

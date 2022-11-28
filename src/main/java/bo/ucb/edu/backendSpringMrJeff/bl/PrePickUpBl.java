@@ -157,13 +157,10 @@ public class PrePickUpBl {
     public Schedule getPrePickInfoV2(int userId, String username){
         Integer currentUser = userId;
         Schedule schedule = new Schedule();
-//        if(userId == 0){
-//            MrUser currentUserObj = mrUserDao.findByUsername(username);
-//            currentUser = currentUserObj.getUserId();
-//        }
-
-
-
+        if(userId == 0){
+            MrUser currentUserObj = mrUserDao.findByUsername(username);
+            currentUser = currentUserObj.getUserId();
+        }
 
         List<String> holidaysList = getHolidaysInOneMonthStrings();
         List<AddressResDto> infoAddress = getAddressInfoFromUserDto(currentUser);
@@ -182,6 +179,8 @@ public class PrePickUpBl {
             hoursDescList.add(h);
         }
         List<Date> holidaysDates = getHolidaysInOneMonth();
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(holidaysDates);
 
         Calendar pivotDateCalendar = Calendar.getInstance();
 
@@ -193,7 +192,8 @@ public class PrePickUpBl {
         while(desc.size() <= 14){
             Date pivotDate = pivotDateCalendar.getTime();
 
-             if( schedule.containsDateInList(pivotDate, holidaysDates) == -1 ){
+             if(!schedule.containsDateInList(pivotDate, holidaysDates) ){
+
                  // la fecha actual no es ta en la lista de feriados
 
                  if( !schedule.isWeekend(pivotDate)){

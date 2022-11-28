@@ -129,10 +129,10 @@ public class TestApi {
         try{
             System.out.println("Aqui 1");
             Schedule schedule = new Schedule();
-//            String jwt = AuthUtil.getTokenFromHeader(headers);
-//            AuthUtil.verifyHasRole(jwt, "createPickUp");
-//            String userName = AuthUtil.getUserNameFromToken(jwt);
-            schedule = prePickUpBl.getPrePickInfoV2( userId , "");
+            String jwt = AuthUtil.getTokenFromHeader(headers);
+            AuthUtil.verifyHasRole(jwt, "createPickUp");
+            String userName = AuthUtil.getUserNameFromToken(jwt);
+            schedule = prePickUpBl.getPrePickInfoV2( userId , userName);
 
             System.out.println("Llego la solicitud de transmitir la nueva informacion");
             System.out.println(schedule);
