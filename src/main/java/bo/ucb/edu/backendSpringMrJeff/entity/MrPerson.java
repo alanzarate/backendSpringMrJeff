@@ -5,12 +5,12 @@ public class MrPerson {
     private String firstName;
     private String lastName;
     private String numPhone;
-    private String genderPerson;
+    private Integer genderPerson;
     private String catPerStatus;
 
     public MrPerson(){}
 
-    public MrPerson(Integer personId, String firstName, String lastName, String numPhone, String genderPerson, String catPerStatus) {
+    public MrPerson(Integer personId, String firstName, String lastName, String numPhone, Integer genderPerson, String catPerStatus) {
         this.personId = personId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,11 +51,11 @@ public class MrPerson {
         this.numPhone = numPhone;
     }
 
-    public String getGenderPerson() {
+    public Integer getGenderPerson() {
         return genderPerson;
     }
 
-    public void setGenderPerson(String genderPerson) {
+    public void setGenderPerson(Integer genderPerson) {
         this.genderPerson = genderPerson;
     }
 

@@ -373,7 +373,7 @@ VALUES
 --{"username":"tcranneym","secret":"VknCqoKjY","email":"kpendrem@mozilla.org", "personId": 23},
 --{"username":"sroonn","secret":"mlYlpS","email":"kclaragen@slate.com", "personId": 24},
 --{"username":"gshouteo","secret":"aDmr06YFHL","email":"sjannascho@people.com.cn", "personId": 25}
---{"username":"alan123","secret":"admin123","email":"alan@gmail.com", "personId": 1}   to uso este
+--{"username":"alan","secret":"admin123","email":"alan@gmail.com", "personId": 1}   to uso este
 
 
 -- hasta este punto ya se reaizo la subida con http
@@ -407,7 +407,7 @@ VALUES
 ('tcranneym','$2a$12$7qtqi4s4ecBeo6PwfuE17eyaDmRj0zuZIvNhmUjogAQJS4q36M4Lm','kpendrem@mozilla.org','active',23,1,'2022-11-16 10:49:02.78644','anonymous','localhost','2022-11-16 10:49:02.78644'),
 ('sroonn','$2a$12$.Btd497ayoVftyBfJowuhOClURYxFHiikIhhT4X17xDvzzEbJmmZC','kclaragen@slate.com','active',24,1,'2022-11-16 10:49:11.248055','anonymous','localhost','2022-11-16 10:49:11.248055'),
 ('gshouteo','$2a$12$U.l.BaYRS45O6sQy9k2z5.6T9Vh2hzD9lpeAkSA3RL.JNVKqQZsS.','sjannascho@people.com.cn','active',25,1,'2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807'),
- ('alan123','$2a$12$r.6kU/.HjWnbB2H.Xj00a.LYiMo7rGcOrWPydX6R5mn/edkKqpHCG','alan@gmail.com','active', 1, 1, '2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807');
+ ('alan','$2a$12$r.6kU/.HjWnbB2H.Xj00a.LYiMo7rGcOrWPydX6R5mn/edkKqpHCG','alan@gmail.com','active', 1, 1, '2022-11-16 10:49:18.977807','anonymous','localhost','2022-11-16 10:49:18.977807');
 
 
   -- los couriers  user_id { 4 ,8 ,9 ,10 ,15, 22}

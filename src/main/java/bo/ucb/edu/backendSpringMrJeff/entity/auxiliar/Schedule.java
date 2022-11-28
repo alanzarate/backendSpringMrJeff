@@ -55,7 +55,7 @@ public class Schedule {
 
         Calendar  testDate = Calendar.getInstance();
         testDate.setTime(date);
-        if(dateFoo.isEmpty()){
+        if(timeFoo.length() == 0){
             testDate.set(Calendar.HOUR_OF_DAY, 0 );
             testDate.set(Calendar.MINUTE, 0);
             testDate.set(Calendar.SECOND, 0 );

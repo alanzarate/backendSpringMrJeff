@@ -7,6 +7,7 @@ import bo.ucb.edu.backendSpringMrJeff.entity.MrAddress;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrOrder;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
+import bo.ucb.edu.backendSpringMrJeff.entity.auxiliar.Schedule;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.DeliverDetailModel;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.OperationInfoModel;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
@@ -29,6 +30,7 @@ public class PickUpBl {
     private MrScheduleDao mrScheduleDao;
     private MrUserDao mrUserDao;
     private MrDeliverDao mrDeliverDao;
+
     public PickUpBl(
             MrAddressDao mrAddressDao,
             MrOrderDao mrOrderDao,
@@ -36,7 +38,8 @@ public class PickUpBl {
             MrHolidayDao mrHolidayDao,
             MrScheduleDao mrScheduleDao,
             MrUserDao mrUserDao,
-            MrDeliverDao mrDeliverDao) {
+            MrDeliverDao mrDeliverDao
+    ) {
         this.mrAddressDao = mrAddressDao;
         this.mrOrderDao = mrOrderDao;
         this.mrPickUpDao = mrPickUpDao;
@@ -44,6 +47,7 @@ public class PickUpBl {
         this.mrScheduleDao = mrScheduleDao;
         this.mrUserDao = mrUserDao;
         this.mrDeliverDao = mrDeliverDao;
+
     }
 
     public void createNewPickUp(NewPickUpDto newPickUpDto, String userName){
@@ -81,7 +85,8 @@ public class PickUpBl {
 
         mrOrderDao.createNewOrder(mrOrder);
         Integer orderId = mrOrderDao.viewLastOrderCreated();
-        mrPickUp.setDateOpe(newPickUpDto.getDate());
+        Schedule schedule = new Schedule();
+        mrPickUp.setDateOpe(schedule.getDateFromString("",newPickUpDto.getDate()));
         mrPickUp.setMrAddressId(addressId);
         mrPickUp.setMrScheduleId(newPickUpDto.getTimeId());
         mrPickUp.setMrOrderId(orderId);
@@ -94,7 +99,7 @@ public class PickUpBl {
             Date d = dateFormat.parse(timeStartString);
 
 
-            dateStamp.setTime(newPickUpDto.getDate());
+            dateStamp.setTime(schedule.getDateFromString("",newPickUpDto.getDate() ));
             dateStamp.set(Calendar.HOUR_OF_DAY, d.getHours());
             dateStamp.set(Calendar.MINUTE, d.getMinutes());
             dateStamp.set(Calendar.SECOND, d.getSeconds());

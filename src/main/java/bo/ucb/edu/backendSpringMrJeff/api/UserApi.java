@@ -1,8 +1,11 @@
 package bo.ucb.edu.backendSpringMrJeff.api;
 
+import bo.ucb.edu.backendSpringMrJeff.bl.NewUserBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.SecurityBl;
 import bo.ucb.edu.backendSpringMrJeff.bl.UserBl;
+import bo.ucb.edu.backendSpringMrJeff.dto.ConfirmJobReqDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.CreateUserDto;
+import bo.ucb.edu.backendSpringMrJeff.dto.NewUserReqDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.ResponseDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPerson;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
@@ -17,9 +20,11 @@ public class UserApi {
 
     private UserBl userBl;
     private SecurityBl securityBl;
-    public UserApi(UserBl userBl, SecurityBl securityBl){
+    private NewUserBl newUserBl;
+    public UserApi(UserBl userBl, SecurityBl securityBl, NewUserBl newUserBl){
         this.userBl = userBl;
         this.securityBl = securityBl;
+        this.newUserBl = newUserBl;
     }
 /**
     @PostMapping(value = "/new")
@@ -76,6 +81,19 @@ public class UserApi {
             return new ResponseDto<>(null, ex.getMessage(), false);
         }
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/newuser")
+    public ResponseDto<Map<String, Boolean>> createNewUser(
+            @RequestHeader Map<String, String> headers,
+            @RequestBody NewUserReqDto newUserReqDto
+            ){
+        try{
+            newUserBl.createNewUser(newUserReqDto);
+        }catch (MrJeffException ex){
+            return new ResponseDto<>(null, ex.getMessage(), false);
+        }
+    }
+
 
 
 
