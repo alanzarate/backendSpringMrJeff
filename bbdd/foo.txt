@@ -9,6 +9,7 @@
 -- MR_DELIVER
 
 SELECT * FROM information_schema.sequences;
+
 SELECT mr_operation_state_id FROM mr_operation_state
 where for_operation = 'order'
 AND state = 'requestedPickUp';

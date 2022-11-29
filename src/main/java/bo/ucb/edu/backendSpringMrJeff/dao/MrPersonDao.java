@@ -30,7 +30,7 @@ public interface MrPersonDao {
             (first_name, last_name, num_phone, gender_person, cat_per_status, status, tx_date, tx_user, tx_host, created)
             VALUES
             ( #{ firstName } , #{ lastName } , #{ numPhone } , #{ genderPerson } , 'active', 1, now(), 'admin',
-                                'localhost', now() }
+            'localhost', now() );
             """)
     void createNewPerson(MrPerson mrPerson);
 
