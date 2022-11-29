@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import bo.ucb.edu.backendSpringMrJeff.dao.MrClothingDao;
 import bo.ucb.edu.backendSpringMrJeff.dto.ClothingDto;
-import bo.ucb.edu.backendSpringMrJeff.dto.MrClothingCard;
+import bo.ucb.edu.backendSpringMrJeff.dto.MrClothingCardDto;
 
 @Service
 public class ClothingBl {
@@ -16,7 +16,7 @@ public class ClothingBl {
         this.mrClothingDao = mrClothingDao;
     }
 
-    public List<MrClothingCard> getAllClothings(Integer categoryId){
+    public List<MrClothingCardDto> getAllClothings(Integer categoryId){
         return mrClothingDao.getClothingsbyCategory(categoryId);
     }
 

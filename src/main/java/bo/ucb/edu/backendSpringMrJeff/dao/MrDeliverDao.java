@@ -1,9 +1,12 @@
 package bo.ucb.edu.backendSpringMrJeff.dao;
 
+import bo.ucb.edu.backendSpringMrJeff.dto.BodyClothingOrderDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrDeliver;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.DeliverDetailModel;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
+
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
@@ -100,4 +103,11 @@ public interface MrDeliverDao {
                 MR_DELIVER_ID = #{ deliverId } ;
             """)
     void updateValueOfState(Integer stateId, Integer userId, Integer deliverId);
+
+    @Insert("""
+        INSERT INTO mr_delivery
+        (date_ope, mr_operation_state_id, mr_address_id, mr_user_id, mr_schedule_id, mr_order_id, code_gen, status, tx_date, tx_user, tx_host, created)
+        VALUES(now(), #{mrOperationStateId}, #{mrAddressId}, #{mrUserId}, #{mrScheduleId}, #{mrOrderId}, #{codeGen}, #{status}, #{txDate}, #{txUser}, #{txHost}, #{created});
+            """)
+    public void createDelivery(BodyClothingOrderDto bodyClothingOrderDto);
 }

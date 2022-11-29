@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import bo.ucb.edu.backendSpringMrJeff.dto.ClothingDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.ImageDto;
-import bo.ucb.edu.backendSpringMrJeff.dto.MrClothingCard;
+import bo.ucb.edu.backendSpringMrJeff.dto.MrClothingCardDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.ServiceDto;
 
 @Component
@@ -35,7 +35,7 @@ public interface MrClothingDao {
         AND mr_service.principal_service = 1
         AND mr_category_cloth.mr_category_cloth_id = #{category};
             """)
-        List<MrClothingCard> getClothingsbyCategory(Integer category);
+        List<MrClothingCardDto> getClothingsbyCategory(Integer category);
 
         @Select("""
         SELECT 
