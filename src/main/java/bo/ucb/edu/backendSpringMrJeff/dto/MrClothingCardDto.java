@@ -1,15 +1,15 @@
 package bo.ucb.edu.backendSpringMrJeff.dto;
 
-public class MrClothingCard {
+public class MrClothingCardDto {
     private Integer clothingId;
     private String title;
     private String img;
     private String service;
     private Double price;
 
-    public MrClothingCard(){}
+    public MrClothingCardDto(){}
 
-    public MrClothingCard(Integer clothingId, String title, String img, String service, Double price) {
+    public MrClothingCardDto(Integer clothingId, String title, String img, String service, Double price) {
         this.clothingId = clothingId;
         this.title = title;
         this.img = img;

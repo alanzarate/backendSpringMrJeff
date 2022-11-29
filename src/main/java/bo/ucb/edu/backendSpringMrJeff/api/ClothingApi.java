@@ -9,29 +9,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bo.ucb.edu.backendSpringMrJeff.bl.ClothingBl;
 import bo.ucb.edu.backendSpringMrJeff.dto.ClothingDto;
-import bo.ucb.edu.backendSpringMrJeff.dto.MrClothingCard;
+import bo.ucb.edu.backendSpringMrJeff.dto.MrClothingCardDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.ResponseDto;
 
 @RestController
-@RequestMapping("/api/v1/clothing")
+@RequestMapping(value= "/api/v1/clothing", produces = "application/json;charset=UTF-8")
 public class ClothingApi {
     private ClothingBl clothingBl;
     public ClothingApi(ClothingBl clothingBl){
         this.clothingBl = clothingBl;
     }
-    
 
-    @GetMapping("/category/{id}")
-    public ResponseDto<List<MrClothingCard>> getProductsbyCategory(@PathVariable(name="id") Integer id){
+    @GetMapping(value="/category/{id}")
+    public ResponseDto<List<MrClothingCardDto>> getProductsbyCategory(@PathVariable(name="id") Integer id){
         try{
-            List<MrClothingCard> products = clothingBl.getAllClothings(id);
-            return new ResponseDto<List<MrClothingCard>>(products, null, true);
+            List<MrClothingCardDto> products = clothingBl.getAllClothings(id);
+            return new ResponseDto<List<MrClothingCardDto>>(products, null, true);
         } catch (Exception ex) {
             return new ResponseDto<>(null, "Ocurrio un error al obtener los productos", false);
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value="/{id}")
     public ResponseDto<ClothingDto> getProductById(@PathVariable(name="id") Integer id){
         try{
             ClothingDto clothing = clothingBl.getClothingById(id);
