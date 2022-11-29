@@ -11,11 +11,11 @@ public class NewPickUpDto {
     private String addressLink;
     private Integer userId;
     private Integer timeId;
-    private Date date;
+    private String date;
 
     public NewPickUpDto(){}
 
-    public NewPickUpDto(Integer addressId, String name, Double latitude, Double longitude, String detail, String addressLink, Integer userId, Integer timeId, Date date) {
+    public NewPickUpDto(Integer addressId, String name, Double latitude, Double longitude, String detail, String addressLink, Integer userId, Integer timeId, String date) {
         this.addressId = addressId;
         this.name = name;
         this.latitude = latitude;
@@ -91,11 +91,26 @@ public class NewPickUpDto {
         this.timeId = timeId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "NewPickUpDto{" +
+                "addressId=" + addressId +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", detail='" + detail + '\'' +
+                ", addressLink='" + addressLink + '\'' +
+                ", userId=" + userId +
+                ", timeId=" + timeId +
+                ", date=" + date +
+                '}';
     }
 }

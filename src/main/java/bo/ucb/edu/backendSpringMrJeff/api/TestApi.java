@@ -25,17 +25,20 @@ public class TestApi {
     private PresentationForWorkerBl presentationForWorkerBl;
     private JobStateBl jobStateBl;
     private UserBl userBl;
+    private EmailBl emailBl;
     public TestApi(PrePickUpBl prePickUpBl,
                    PickUpBl pickUpBl,
                    PresentationForWorkerBl presentationForWorkerBl,
                    JobStateBl jobStateBl,
-                   UserBl userBl
+                   UserBl userBl,
+                   EmailBl emailBl
                    ) {
         this.pickUpBl = pickUpBl;
         this.prePickUpBl = prePickUpBl;
         this.presentationForWorkerBl = presentationForWorkerBl;
         this.jobStateBl = jobStateBl;
         this.userBl = userBl;
+        this.emailBl = emailBl;
     }
 
     @GetMapping("/hours")
@@ -67,6 +70,8 @@ public class TestApi {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.verifyHasRole(jwt, "createPickUp");
             String userName = AuthUtil.getUserNameFromToken(jwt);
+            System.out.println("=======================> " + newPickUpDto);
+
             pickUpBl.createNewPickUp(newPickUpDto, userName);
 
             response.put("wasCreated", true);
@@ -177,7 +182,7 @@ public class TestApi {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/available")
+    @RequestMapping(method = RequestMethod.GET, value = "/available", produces = "application/json;charset=UTF-8")
     public ResponseDto<OperationInfoResDto> getAgendaForCourier(@RequestHeader Map<String, String> headers){
 
         try{
@@ -189,7 +194,7 @@ public class TestApi {
             return new ResponseDto<>(result, "Se obtuvieron los datos correctamente", true);
         }catch (MrJeffException ex){
             System.out.println(ex.getMessage());
-            return new ResponseDto<>(null, "Ocurrio un error", false);
+            return new ResponseDto<>(null, ex.getMessage(), false);
         }
 
 
@@ -236,5 +241,31 @@ public class TestApi {
 
 
     }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/mail")
+    public ResponseDto<Map<String, Boolean>> testingMaing(@RequestHeader Map<String, String> headers){
+
+        try{
+//            String jwt = AuthUtil.getTokenFromHeader(headers);
+//            String userName = AuthUtil.getUserNameFromToken(jwt);
+//            List<String> group =  userBl.getGroupUserByUsername(userName);
+
+            String correo = "alnzarate@gmail.com";
+            String sub = "Ya esta a tu correo ";
+            String body = "Solo falta generar el token para enviarlo por aqui y admite HTML? <h1> TITULO </h1>";
+
+            emailBl.sendMailWithAttachment(correo, body, sub, null);
+
+            return new ResponseDto<>(Map.of("congrats", true), "Se envio correctamente", true);
+        }catch (MrJeffException ex){
+            System.out.println(ex.getMessage());
+            return new ResponseDto<>(null, "Ocurrio un error", false);
+        }
+
+
+    }
+
+
 
 }

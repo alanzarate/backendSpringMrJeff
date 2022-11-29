@@ -5,14 +5,18 @@ import bo.ucb.edu.backendSpringMrJeff.dao.MrGroupDao;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrPersonDao;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrUserDao;
 import bo.ucb.edu.backendSpringMrJeff.dto.CreateUserDto;
+import bo.ucb.edu.backendSpringMrJeff.dto.NewUserReqDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPerson;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrUser;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserBl {
+    Map<String, NewUserReqDto> mapPersona;
     private MrUserDao mrUserDao;
     private MrPersonDao mrPersonDao;
     private MrGroupDao mrGroupDao;
@@ -21,6 +25,7 @@ public class UserBl {
         this.mrUserDao = mrUserDao;
         this.mrPersonDao = mrPersonDao;
         this.mrGroupDao = mrGroupDao;
+        this.mapPersona = new HashMap<>();
     }
     public void createUser(CreateUserDto createUserDto){
         MrUser mrUser = new MrUser();
@@ -39,4 +44,6 @@ public class UserBl {
     public List<String> getGroupUserByUsername(String username){
         return mrGroupDao.getGroupByUserName(username);
     }
+
+
 }
