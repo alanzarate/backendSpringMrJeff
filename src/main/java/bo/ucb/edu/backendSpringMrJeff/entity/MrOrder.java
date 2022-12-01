@@ -2,6 +2,7 @@ package bo.ucb.edu.backendSpringMrJeff.entity;
 
 import java.util.Date;
 
+
 public class MrOrder {
     private Integer mrOrderId;
     private String comment;

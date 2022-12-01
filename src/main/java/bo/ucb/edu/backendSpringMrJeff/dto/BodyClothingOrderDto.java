@@ -2,87 +2,128 @@ package bo.ucb.edu.backendSpringMrJeff.dto;
 
 
 public class BodyClothingOrderDto {
-    private Integer mrOperationStateId;
-    private Integer mrAddressId;
-    private Integer mrUserId;
-    private Integer mrScheduleId;
-    private Integer mrOrderId;
-    private Integer codeGen;
-    private Integer status;
+   private Integer addressId;
+   private String name;
+   private Double latitude;
+   private Double longitude;
+   private String detail;
+   private String addressLink;
+   private Integer timeId;
+   private String date;
+   private String comment;
+   private Integer orderId;
+   
+   public BodyClothingOrderDto(){}
 
-    public BodyClothingOrderDto(){}
+   public BodyClothingOrderDto(Integer addressId, String name, Double latitude, Double longitude, String detail, String addressLink, Integer timeId, String date, String comment, Integer orderId) {
+       this.addressId = addressId;
+       this.name = name;
+       this.latitude = latitude;
+       this.longitude = longitude;
+       this.detail = detail;
+       this.addressLink = addressLink;
+       this.timeId = timeId;
+       this.date = date;
+       this.comment = comment;
+       this.orderId = orderId;
+   }
 
-    public BodyClothingOrderDto(Integer mrOperationStateId, Integer mrAddressId, Integer mrUserId, Integer mrScheduleId, Integer mrOrderId, Integer codeGen, Integer status) {
-        this.mrOperationStateId = mrOperationStateId;
-        this.mrAddressId = mrAddressId;
-        this.mrUserId = mrUserId;
-        this.mrScheduleId = mrScheduleId;
-        this.mrOrderId = mrOrderId;
-        this.codeGen = codeGen;
-        this.status = status;
-    }
+   public Integer getAddressId() {
+       return addressId;
+   }
 
-    public Integer getMrOperationStateId() {
-        return mrOperationStateId;
-    }
+   public void setAddressId(Integer addressId) {
+       this.addressId = addressId;
+   }
 
-    public void setMrOperationStateId(Integer mrOperationStateId) {
-        this.mrOperationStateId = mrOperationStateId;
-    }
+   public String getName() {
+       return name;
+   }
 
-    public Integer getMrAddressId() {
-        return mrAddressId;
-    }
+   public void setName(String name) {
+       this.name = name;
+   }
 
-    public void setMrAddressId(Integer mrAddressId) {
-        this.mrAddressId = mrAddressId;
-    }
+   public Double getLatitude() {
+       return latitude;
+   }
 
-    public Integer getMrUserId() {
-        return mrUserId;
-    }
+   public void setLatitude(Double latitude) {
+       this.latitude = latitude;
+   }
 
-    public void setMrUserId(Integer mrUserId) {
-        this.mrUserId = mrUserId;
-    }
+   public Double getLongitude() {
+       return longitude;
+   }
 
-    public Integer getMrScheduleId() {
-        return mrScheduleId;
-    }
+   public void setLongitude(Double longitude) {
+       this.longitude = longitude;
+   }
 
-    public void setMrScheduleId(Integer mrScheduleId) {
-        this.mrScheduleId = mrScheduleId;
-    }
+   public String getDetail() {
+       return detail;
+   }
 
-    public Integer getMrOrderId() {
-        return mrOrderId;
-    }
+   public void setDetail(String detail) {
+       this.detail = detail;
+   }
 
-    public void setMrOrderId(Integer mrOrderId) {
-        this.mrOrderId = mrOrderId;
-    }
+   public String getAddressLink() {
+       return addressLink;
+   }
 
-    public Integer getCodeGen() {
-        return codeGen;
-    }
+   public void setAddressLink(String addressLink) {
+       this.addressLink = addressLink;
+   }
 
-    public void setCodeGen(Integer codeGen) {
-        this.codeGen = codeGen;
-    }
+   public Integer getTimeId() {
+       return timeId;
+   }
 
-    public Integer getStatus() {
-        return status;
-    }
+   public void setTimeId(Integer timeId) {
+       this.timeId = timeId;
+   }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+   public String getDate() {
+       return date;
+   }
 
-    @Override
-    public String toString() {
-        return "BodyClothingOrderDto [codeGen=" + codeGen + ", mrAddressId=" + mrAddressId + ", mrOperationStateId="
-                + mrOperationStateId + ", mrOrderId=" + mrOrderId + ", mrScheduleId=" + mrScheduleId + ", mrUserId="
-                + mrUserId + ", status=" + status + "]";
-    }
+   public void setDate(String date) {
+       this.date = date;
+   }
+
+   public String getComment() {
+       return comment;
+   }
+
+   public void setComment(String comment) {
+       this.comment = comment;
+   }
+
+   public Integer getOrderId() {
+       return orderId;
+   }
+
+   public void setOrderId(Integer orderId) {
+       this.orderId = orderId;
+   }
+
+   @Override
+   public String toString() {
+       return "BodyClothingOrderDto{" +
+               "addressId=" + addressId +
+               ", name='" + name + '\'' +
+               ", latitude=" + latitude +
+               ", longitude=" + longitude +
+               ", detail='" + detail + '\'' +
+               ", addressLink='" + addressLink + '\'' +
+               ", timeId=" + timeId +
+               ", date='" + date + '\'' +
+               ", comment='" + comment + '\'' +
+               ", orderId=" + orderId +
+               '}';
+   }
+   
+
     
 }

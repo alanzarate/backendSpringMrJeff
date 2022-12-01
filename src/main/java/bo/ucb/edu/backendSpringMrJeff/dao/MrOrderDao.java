@@ -87,4 +87,15 @@ public interface MrOrderDao {
         List<OrderDto> getOrders(Integer id);
 
 
+        @Update("""
+            UPDATE
+                MR_ORDER
+            SET
+                COMMENT = #{comment},
+            WHERE 
+                MR_ORDER_ID = #{ orderId } ;
+            """)
+        void updateMrOrder(Integer orderId, String comment);
+
+
 }

@@ -39,13 +39,11 @@ public class OrderApi {
         ResponseDto<Map<String,String>> response = new ResponseDto<Map<String,String>>();
         try{
             /* String jwt = AuthUtil.getTokenFromHeader(headers);
-            AuthUtil.verifyHasRole(jwt, "createDelivery");
-            String userName = AuthUtil.getUserNameFromToken(jwt); */
+            AuthUtil.verifyHasRole(jwt, "createDelivery"); */
             orderBl.addClothingOrder(body);
             response.setSuccess(true);
             response.setMessage("Orden agregada correctamente");
             System.out.println("Orden agregada correctamente");
-
         }catch (Exception e){
             response.setSuccess(false);
             response.setMessage("Error al agregar la orden");

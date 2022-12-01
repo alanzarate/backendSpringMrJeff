@@ -146,9 +146,20 @@ SELECT * from mr_order;
 INSERT INTO MR_CLOTHING_ORDER
                         (PRICE, QUANTITY, MR_SERVICE_ID, MR_ORDER_ID, STATUS, TX_DATE, TX_USER, TX_HOST, CREATED)  
                 VALUES
+import java.util.Date;
                         (58.0, 2, 1, 1, 1, now(), 'admin', 'localhost', now());
 
 DELETE FROM mr_clothing_order WHERE mr_order_id = 1;
 
 
 SELECT * FROM mr_clothing_order;
+
+SELECT * FROM mr_person;
+
+SELECT * FROM mr_operation_state;
+
+SELECT * from mr_user;
+
+SELECT * from mr_group_role;
+
+SELECT * FROm mr_group;
