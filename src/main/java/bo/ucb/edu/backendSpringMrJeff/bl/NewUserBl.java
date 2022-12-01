@@ -59,7 +59,7 @@ public class NewUserBl {
 
 
             javaMailSender.send(mimeMessage);
-
+            System.out.println(" ====> Se envio en correo al correo"+toEmail );
 
 
         }catch ( MessagingException mex){
@@ -69,15 +69,22 @@ public class NewUserBl {
     }
 
     public void createNewUser(NewUserReqDto newUserReqDto) {
-        MrUser mrUser = mrUserDao.findByUsername(newUserReqDto.getUsername().trim());
-        System.out.println(mrUser);
-        if(mrUser == null){
-            String token  =  generateToken(5);
-            newUserReqDtoMap.put(newUserReqDto.getEmail(), token);
-            sendMailWithAttachment(newUserReqDto.getEmail(), "Tu código es: "+ token, "Código de nuevo usuario", null);
-        }else{
-            throw new MrJeffException("Error, nombre de usuario no valido");
+        try{
+            MrUser mrUser = mrUserDao.findByUsername(newUserReqDto.getUsername().trim());
+            System.out.println(mrUser);
+            if(mrUser == null){
+                String token  =  generateToken(5);
+                newUserReqDtoMap.put(newUserReqDto.getEmail(), token);
+
+                sendMailWithAttachment(newUserReqDto.getEmail(), "Tu código es: "+ token, "Código de nuevo usuario", null);
+                System.out.println("Se envio en correo al correo" + newUserReqDto.getEmail());
+            }else{
+                throw new MrJeffException("Error, nombre de usuario no valido");
+            }
+        }catch (Exception e){
+            throw new MrJeffException("No se pudo crear cc");
         }
+
 
 
     }
