@@ -1,5 +1,6 @@
 package bo.ucb.edu.backendSpringMrJeff.dao;
 
+import bo.ucb.edu.backendSpringMrJeff.dto.PickUpDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrPickUp;
 import bo.ucb.edu.backendSpringMrJeff.entity.model.PickUpDetailsModel;
 import org.apache.ibatis.annotations.Insert;
@@ -112,5 +113,19 @@ public interface MrPickUpDao {
                 MR_PICKUP_ID = #{ pickUpId } ;
             """)
     void updateValueOfState(Integer stateId, Integer userId, Integer pickUpId);
+
+    @Select("""
+            SELECT mr_pick_up.date_ope, mr_order.comment, mr_operation_state.description_state, mr_schedule.time_start, mr_schedule.time_end 
+            from mr_pick_up, mr_schedule, mr_order, mr_operation_state  
+            INNER JOIN mr_pick_up ON 
+            mr_schedule.mr_schedule_id = mr_pick_up.mr_schedule_id
+            INNER JOIN mr_order ON 
+            mr_pick_up.mr_order_id = mr_order.mr_order_id
+            INNER JOIN mr_operation_state ON 
+            mr_pick_up.mr_operation_state_id = mr_operation_state.mr_operation_state_id 
+            WHERE mr_pick_up.status = 1
+            and mr_pick_up.mr_user_id = #{id};
+            """)
+    List<PickUpDto> getPickUpByUserId(Integer id);
 
 }
