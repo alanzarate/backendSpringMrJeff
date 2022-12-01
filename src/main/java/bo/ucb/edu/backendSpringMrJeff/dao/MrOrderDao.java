@@ -2,6 +2,7 @@ package bo.ucb.edu.backendSpringMrJeff.dao;
 
 import bo.ucb.edu.backendSpringMrJeff.dto.ClothingOrderDto;
 import bo.ucb.edu.backendSpringMrJeff.dto.NewClothingsOrder;
+import bo.ucb.edu.backendSpringMrJeff.dto.OrderDto;
 import bo.ucb.edu.backendSpringMrJeff.entity.MrOrder;
 
 import java.util.List;
@@ -70,7 +71,20 @@ public interface MrOrderDao {
                 GROUP BY mr_clothing_order.quantity, mr_clothing.title, mr_clothing_images.url;       
                         """)
         List<ClothingOrderDto> getClothingOrder(Integer id);
-        
+
+        @Select("""
+            SELECT mr_order.comment, mr_order.mr_invoice_id, mr_operation_state.description_state, 
+            mr_payment_method.last_numbers, mr_order.pay_cash  
+            from mr_order, mr_operation_state, mr_payment_method 
+            # Join the tables
+            INNER JOIN mr_operation_state ON
+            mr_order.mr_operation_state_id = mr_operation_state.mr_operation_state_id
+            INNER JOIN mr_payment_method ON
+            mr_order.mr_payment_method_id = mr_payment_method.mr_payment_method_id
+            WHERE mr_order.status = 1
+            and mr_order.mr_user_id = #{id};
+            """)
+        List<OrderDto> getOrders(Integer id);
 
 
 }

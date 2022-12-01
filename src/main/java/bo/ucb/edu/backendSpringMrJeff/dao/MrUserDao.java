@@ -57,5 +57,11 @@ public interface MrUserDao {
             """)
     MrUser findByUsername(String username);
 
-    
+    @Select("""
+                SELECT currval('mr_user_mr_user_id_seq');
+                """)
+    Integer viewLastUserCreated();
+
+
+
 }

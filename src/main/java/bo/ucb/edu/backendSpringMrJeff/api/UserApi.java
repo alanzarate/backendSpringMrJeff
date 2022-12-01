@@ -82,19 +82,31 @@ public class UserApi {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/newuser")
-    public ResponseDto<Map<String, Boolean>> createNewUser(
+    @RequestMapping(method = RequestMethod.POST, value = "/prenewv2")
+    public ResponseDto<Map<String, Boolean>> preCreateNewUser(
             @RequestHeader Map<String, String> headers,
             @RequestBody NewUserReqDto newUserReqDto
             ){
         try{
             newUserBl.createNewUser(newUserReqDto);
+            return new ResponseDto<>(null, "Se envio el codigo al correo seleccionado", true);
         }catch (MrJeffException ex){
             return new ResponseDto<>(null, ex.getMessage(), false);
         }
     }
 
-
+    @RequestMapping(method = RequestMethod.POST, value = "/newv2")
+    public ResponseDto<Map<String, Boolean>> createNewUser(
+            @RequestHeader Map<String, String> headers,
+            @RequestBody NewUserReqDto newUserReqDto
+    ){
+        try{
+            newUserBl.createRealNewUser(newUserReqDto);
+            return new ResponseDto<>(null, "Se logro registrar al usuario correctamente", true);
+        }catch (MrJeffException ex){
+            return new ResponseDto<>(null, ex.getMessage(), false);
+        }
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package bo.ucb.edu.backendSpringMrJeff.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import bo.ucb.edu.backendSpringMrJeff.dao.MrGroupDao;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrPersonDao;
 import bo.ucb.edu.backendSpringMrJeff.dao.MrUserDao;
 import bo.ucb.edu.backendSpringMrJeff.dto.NewUserReqDto;
@@ -27,13 +28,14 @@ public class NewUserBl {
 
     private MrPersonDao mrPersonDao;
     private MrUserDao mrUserDao;
+    private MrGroupDao mrGroupDao;
 
-    public NewUserBl(JavaMailSender javaMailSender, MrPersonDao mrPersonDao, MrUserDao mrUserDao){
+    public NewUserBl(JavaMailSender javaMailSender, MrPersonDao mrPersonDao, MrUserDao mrUserDao, MrGroupDao mrGroupDao){
         this.javaMailSender = javaMailSender;
         this.newUserReqDtoMap = new HashMap<>();
         this.mrUserDao = mrUserDao;
         this.mrPersonDao = mrPersonDao;
-
+        this.mrGroupDao = mrGroupDao;
     }
     public void sendMailWithAttachment(String toEmail,
                                        String body,
@@ -67,12 +69,20 @@ public class NewUserBl {
     }
 
     public void createNewUser(NewUserReqDto newUserReqDto) {
-        String token  =  generateToken(5);
-        newUserReqDtoMap.put(newUserReqDto.getEmail(), token);
-        sendMailWithAttachment(newUserReqDto.getEmail(), "Tu código es: "+ token, "Código de nuevo usuario", null);
+        MrUser mrUser = mrUserDao.findByUsername(newUserReqDto.getUsername().trim());
+        System.out.println(mrUser);
+        if(mrUser == null){
+            String token  =  generateToken(5);
+            newUserReqDtoMap.put(newUserReqDto.getEmail(), token);
+            sendMailWithAttachment(newUserReqDto.getEmail(), "Tu código es: "+ token, "Código de nuevo usuario", null);
+        }else{
+            throw new MrJeffException("Error, nombre de usuario no valido");
+        }
+
 
     }
     public void createRealNewUser(NewUserReqDto newUserReqDto){
+
         if(newUserReqDtoMap.containsKey(newUserReqDto.getEmail())){
             if(newUserReqDtoMap.get(newUserReqDto.getEmail()).equals(newUserReqDto.getToken())){
                 MrPerson mrPerson = new MrPerson();
@@ -81,14 +91,41 @@ public class NewUserBl {
                 mrPerson.setLastName(newUserReqDto.getLastName());
                 mrPerson.setNumPhone(newUserReqDto.getNumPhone());
                 mrPersonDao.createNewPerson(mrPerson);
-
                 // se creo la persona
-                int codigPerson = mrPersonDao.viewLastPersonCreated();
+
+                int codePerson = mrPersonDao.viewLastPersonCreated();
+
+                // empieza a crear el usuario
                 MrUser mrUser = new MrUser();
                 mrUser.setUsername(newUserReqDto.getUsername());
                 String secret = BCrypt.withDefaults().hashToString(12, newUserReqDto.getPassword().toCharArray());
                 mrUser.setSecret(secret);
+                mrUser.setEmail(newUserReqDto.getEmail());
+                this.mrUserDao.createUserWithPersonId(mrUser, codePerson);
+                // se creo el usuario
+
+                // obtine el ultimo del usuario
+                int codeUser = mrUserDao.viewLastUserCreated();
+                
+                // seleccionar el grupo al que va a pertencer
+
+
+                int idGroup = switch (newUserReqDto.getRole()) {
+                    case "courier" -> mrGroupDao.getIdOfGroup("courier");
+                    case "admin" -> mrGroupDao.getIdOfGroup("admin");
+                    case "user" -> mrGroupDao.getIdOfGroup("user");
+                    default -> 0;
+                };
+                // se crea la relacion del grupo y el usuario
+                mrGroupDao.createNewUserGroup(idGroup, codeUser);
+
+                newUserReqDtoMap.remove(newUserReqDto.getEmail());
+
+            }else{
+                throw new MrJeffException("El token no iguala");
             }
+        }else {
+            throw new MrJeffException("No existe el correo en el mapa");
         }
     }
 
