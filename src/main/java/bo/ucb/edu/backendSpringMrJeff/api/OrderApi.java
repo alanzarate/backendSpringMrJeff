@@ -3,9 +3,6 @@ package bo.ucb.edu.backendSpringMrJeff.api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Dynamic;
-
 import bo.ucb.edu.backendSpringMrJeff.bl.OrderBl;
 import bo.ucb.edu.backendSpringMrJeff.dto.ResponseDto;
 import bo.ucb.edu.backendSpringMrJeff.util.AuthUtil;
@@ -15,7 +12,6 @@ import bo.ucb.edu.backendSpringMrJeff.dto.NewClothingsOrder;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
